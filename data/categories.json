@@ -1,0 +1,109 @@
+{
+  "categories": [
+    {
+      "id": "ARITHMETIC",
+      "name": "Arithmetic",
+      "description": "Basic math operations (+, -, *, /, ^)"
+    },
+    {
+      "id": "TRIGONOMETRIC",
+      "name": "Trigonometric",
+      "description": "Trigonometric functions (sin, cos, tan, etc.)"
+    },
+    {
+      "id": "LOGARITHMIC",
+      "name": "Logarithmic",
+      "description": "Logarithmic and exponential functions"
+    },
+    {
+      "id": "COMPARISON",
+      "name": "Comparison",
+      "description": "Comparison operators (<, >, ==, etc.)"
+    },
+    {
+      "id": "LOGICAL",
+      "name": "Logical",
+      "description": "Logical operators (and, or, not)"
+    },
+    {
+      "id": "SET",
+      "name": "Set",
+      "description": "Set operations (union, intersection)"
+    },
+    {
+      "id": "CALCULUS",
+      "name": "Calculus",
+      "description": "Calculus operations (derivative, integral)"
+    },
+    {
+      "id": "UNKNOWN",
+      "name": "Unknown",
+      "description": "Unknown or unrecognized operator"
+    },
+    {
+      "id": "TRIGONOMETRY",
+      "name": "Trigonometry",
+      "description": "Extended trigonometric functions and identities"
+    },
+    {
+      "id": "COLLECTIONS",
+      "name": "Collections",
+      "description": "Operations on collections (lists, sequences)"
+    },
+    {
+      "id": "COMPLEX",
+      "name": "Complex",
+      "description": "Complex number operations"
+    },
+    {
+      "id": "SPECIAL_FUNCTIONS",
+      "name": "Special Functions",
+      "description": "Special mathematical functions (gamma, beta, etc.)"
+    },
+    {
+      "id": "STATISTICS",
+      "name": "Statistics",
+      "description": "Statistical functions (mean, variance, etc.)"
+    },
+    {
+      "id": "LINEAR_ALGEBRA",
+      "name": "Linear Algebra",
+      "description": "Linear algebra operations (matrix, vector)"
+    },
+    {
+      "id": "COMBINATORICS",
+      "name": "Combinatorics",
+      "description": "Combinatorial functions (factorial, binomial)"
+    },
+    {
+      "id": "NUMBER_THEORY",
+      "name": "Number Theory",
+      "description": "Number theory functions (gcd, lcm, prime)"
+    },
+    {
+      "id": "CORE",
+      "name": "Core",
+      "description": "Core language constructs"
+    },
+    {
+      "id": "CONTROL_STRUCTURES",
+      "name": "Control Structures",
+      "description": "Control flow structures (if, loop)"
+    },
+    {
+      "id": "FUNCTIONS",
+      "name": "Functions",
+      "description": "Function definition and application"
+    },
+    {
+      "id": "STRINGS",
+      "name": "Strings",
+      "description": "String manipulation operations"
+    },
+    {
+      "id": "UNITS",
+      "name": "Units",
+      "description": "Physical units and quantities"
+    }
+  ]
+}

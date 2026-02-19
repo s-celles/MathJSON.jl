@@ -8,6 +8,7 @@ makedocs(;
     repo = "https://github.com/s-celles/MathJSON.jl",
     pages = [
         "Home" => "index.md",
+        "Operator Registry" => "operators.md",
         "API Reference" => "api.md"
     ],
     format = Documenter.HTML(;

@@ -23,6 +23,9 @@ using JSON3
 # Include type definitions
 include("types.jl")
 
+# Include registry loader (must come before operators.jl)
+include("registry_loader.jl")
+
 # Include operator registry
 include("operators.jl")
 
@@ -89,6 +92,9 @@ export NumberExpr, SymbolExpr, StringExpr, FunctionExpr
 export metadata, with_metadata, ValidationResult
 export OperatorCategory, OPERATORS, JULIA_FUNCTIONS
 export get_category, get_julia_function, is_known_operator
+export RegistryLoadError, CategoryInfo, OperatorInfo
+export load_categories, load_operators, load_julia_functions, get_registry_path
+export SPECIAL_FUNCTIONS
 export generate, validate
 export to_symbolics, from_symbolics
 

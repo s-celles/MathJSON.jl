@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/s-celles/MathJSON.jl/schemas/operators.schema.json",
+  "title": "MathJSON Operators",
+  "description": "Schema for MathJSON.jl operator definitions",
+  "type": "object",
+  "required": ["operators"],
+  "properties": {
+    "operators": {
+      "type": "array",
+      "description": "Array of operator definitions",
+      "items": {
+        "type": "object",
+        "required": ["name", "category"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "MathJSON operator name"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category ID reference (must exist in categories.json)"
+          },
+          "arity": {
+            "oneOf": [
+              {"type": "string", "enum": ["unary", "binary", "variadic"]},
+              {"type": "integer", "minimum": 0}
+            ],
+            "description": "Operator arity - unary, binary, variadic, or specific count"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the operator"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Alternative names for this operator"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

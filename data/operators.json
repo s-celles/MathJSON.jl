@@ -1,0 +1,253 @@
+{
+  "operators": [
+    {
+      "name": "Add",
+      "category": "ARITHMETIC",
+      "arity": "variadic",
+      "description": "Addition of two or more values",
+      "aliases": ["Plus", "Sum"]
+    },
+    {
+      "name": "Subtract",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Subtraction of two values",
+      "aliases": ["Minus"]
+    },
+    {
+      "name": "Multiply",
+      "category": "ARITHMETIC",
+      "arity": "variadic",
+      "description": "Multiplication of two or more values",
+      "aliases": ["Times", "Product"]
+    },
+    {
+      "name": "Divide",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Division of two values"
+    },
+    {
+      "name": "Power",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Exponentiation"
+    },
+    {
+      "name": "Negate",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Negation of a value"
+    },
+    {
+      "name": "Root",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Nth root of a value"
+    },
+    {
+      "name": "Sqrt",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Square root of a value"
+    },
+    {
+      "name": "Abs",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Absolute value"
+    },
+    {
+      "name": "Sin",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Sine function"
+    },
+    {
+      "name": "Cos",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Cosine function"
+    },
+    {
+      "name": "Tan",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Tangent function"
+    },
+    {
+      "name": "Arcsin",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse sine function",
+      "aliases": ["Asin"]
+    },
+    {
+      "name": "Arccos",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse cosine function",
+      "aliases": ["Acos"]
+    },
+    {
+      "name": "Arctan",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse tangent function",
+      "aliases": ["Atan"]
+    },
+    {
+      "name": "Sinh",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Hyperbolic sine function"
+    },
+    {
+      "name": "Cosh",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Hyperbolic cosine function"
+    },
+    {
+      "name": "Tanh",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Hyperbolic tangent function"
+    },
+    {
+      "name": "Arcsinh",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse hyperbolic sine function",
+      "aliases": ["Asinh"]
+    },
+    {
+      "name": "Arccosh",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse hyperbolic cosine function",
+      "aliases": ["Acosh"]
+    },
+    {
+      "name": "Arctanh",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse hyperbolic tangent function",
+      "aliases": ["Atanh"]
+    },
+    {
+      "name": "Log",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Natural logarithm"
+    },
+    {
+      "name": "Ln",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Natural logarithm (alias)"
+    },
+    {
+      "name": "Exp",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Exponential function (e^x)"
+    },
+    {
+      "name": "Log10",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Base-10 logarithm"
+    },
+    {
+      "name": "Log2",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Base-2 logarithm"
+    },
+    {
+      "name": "Equal",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Equality comparison"
+    },
+    {
+      "name": "NotEqual",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Inequality comparison"
+    },
+    {
+      "name": "Less",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Less than comparison"
+    },
+    {
+      "name": "Greater",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Greater than comparison"
+    },
+    {
+      "name": "LessEqual",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Less than or equal comparison"
+    },
+    {
+      "name": "GreaterEqual",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Greater than or equal comparison"
+    },
+    {
+      "name": "And",
+      "category": "LOGICAL",
+      "arity": "variadic",
+      "description": "Logical AND"
+    },
+    {
+      "name": "Or",
+      "category": "LOGICAL",
+      "arity": "variadic",
+      "description": "Logical OR"
+    },
+    {
+      "name": "Not",
+      "category": "LOGICAL",
+      "arity": "unary",
+      "description": "Logical NOT"
+    },
+    {
+      "name": "Union",
+      "category": "SET",
+      "arity": "variadic",
+      "description": "Set union"
+    },
+    {
+      "name": "Intersection",
+      "category": "SET",
+      "arity": "variadic",
+      "description": "Set intersection"
+    },
+    {
+      "name": "SetMinus",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Set difference"
+    },
+    {
+      "name": "Derivative",
+      "category": "CALCULUS",
+      "arity": "binary",
+      "description": "Derivative of an expression with respect to a variable"
+    },
+    {
+      "name": "Integrate",
+      "category": "CALCULUS",
+      "arity": "variadic",
+      "description": "Integral of an expression"
+    }
+  ]
+}

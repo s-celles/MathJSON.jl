@@ -1,5 +1,7 @@
 """
 MathJSON Standard Library operator registry and Julia function mapping.
+
+Operators and function mappings are loaded from JSON files in the data/ directory.
 """
 
 """
@@ -40,70 +42,108 @@ Enum representing the categories of MathJSON operators.
     SET
     CALCULUS
     UNKNOWN
+    # Additional categories from MathJSON standard library
+    TRIGONOMETRY
+    COLLECTIONS
+    COMPLEX
+    SPECIAL_FUNCTIONS
+    STATISTICS
+    LINEAR_ALGEBRA
+    COMBINATORICS
+    NUMBER_THEORY
+    CORE
+    CONTROL_STRUCTURES
+    FUNCTIONS
+    STRINGS
+    UNITS
 end
 
 end # module OperatorCategory
+
+# =============================================================================
+# Category String to Enum Mapping
+# =============================================================================
+
+"""
+    CATEGORY_ENUM_MAP
+
+Maps category ID strings to OperatorCategory.T enum values.
+"""
+const CATEGORY_ENUM_MAP = Dict{String,OperatorCategory.T}(
+    "ARITHMETIC" => OperatorCategory.ARITHMETIC,
+    "TRIGONOMETRIC" => OperatorCategory.TRIGONOMETRIC,
+    "LOGARITHMIC" => OperatorCategory.LOGARITHMIC,
+    "COMPARISON" => OperatorCategory.COMPARISON,
+    "LOGICAL" => OperatorCategory.LOGICAL,
+    "SET" => OperatorCategory.SET,
+    "CALCULUS" => OperatorCategory.CALCULUS,
+    "UNKNOWN" => OperatorCategory.UNKNOWN,
+    "TRIGONOMETRY" => OperatorCategory.TRIGONOMETRY,
+    "COLLECTIONS" => OperatorCategory.COLLECTIONS,
+    "COMPLEX" => OperatorCategory.COMPLEX,
+    "SPECIAL_FUNCTIONS" => OperatorCategory.SPECIAL_FUNCTIONS,
+    "STATISTICS" => OperatorCategory.STATISTICS,
+    "LINEAR_ALGEBRA" => OperatorCategory.LINEAR_ALGEBRA,
+    "COMBINATORICS" => OperatorCategory.COMBINATORICS,
+    "NUMBER_THEORY" => OperatorCategory.NUMBER_THEORY,
+    "CORE" => OperatorCategory.CORE,
+    "CONTROL_STRUCTURES" => OperatorCategory.CONTROL_STRUCTURES,
+    "FUNCTIONS" => OperatorCategory.FUNCTIONS,
+    "STRINGS" => OperatorCategory.STRINGS,
+    "UNITS" => OperatorCategory.UNITS
+)
+
+# =============================================================================
+# Load Registry Data from JSON Files
+# =============================================================================
+
+"""
+    _load_registry_data()
+
+Load operator registry data from JSON files and return populated dictionaries.
+"""
+function _load_registry_data()
+    # Load categories
+    cat_path = get_registry_path("categories.json")
+    categories = load_categories(cat_path)
+
+    # Load operators
+    op_path = get_registry_path("operators.json")
+    operator_registry = load_operators(op_path, categories)
+
+    # Load Julia functions
+    func_path = get_registry_path("julia_functions.json")
+    function_registry = load_julia_functions(func_path, operator_registry)
+
+    # Build OPERATORS dictionary (Symbol -> OperatorCategory.T)
+    operators_dict = Dict{Symbol,OperatorCategory.T}()
+    for (name, info) in operator_registry
+        cat_enum = get(CATEGORY_ENUM_MAP, info.category, OperatorCategory.UNKNOWN)
+        operators_dict[name] = cat_enum
+    end
+
+    # Build JULIA_FUNCTIONS dictionary (Symbol -> Function)
+    # Only include operators that have a function mapping
+    functions_dict = Dict{Symbol,Function}()
+    for (name, func) in function_registry
+        if func !== nothing
+            functions_dict[name] = func
+        end
+    end
+
+    return operators_dict, functions_dict
+end
+
+# Load at module initialization
+const _LOADED_OPERATORS, _LOADED_FUNCTIONS = _load_registry_data()
 
 """
     OPERATORS::Dict{Symbol, OperatorCategory.T}
 
 Dictionary mapping MathJSON operator symbols to their categories.
+Loaded from data/operators.json at module initialization.
 """
-const OPERATORS = Dict{Symbol, OperatorCategory.T}(
-    # Arithmetic operators
-    :Add => OperatorCategory.ARITHMETIC,
-    :Subtract => OperatorCategory.ARITHMETIC,
-    :Multiply => OperatorCategory.ARITHMETIC,
-    :Divide => OperatorCategory.ARITHMETIC,
-    :Power => OperatorCategory.ARITHMETIC,
-    :Negate => OperatorCategory.ARITHMETIC,
-    :Root => OperatorCategory.ARITHMETIC,
-    :Sqrt => OperatorCategory.ARITHMETIC,
-    :Abs => OperatorCategory.ARITHMETIC,
-
-    # Trigonometric operators
-    :Sin => OperatorCategory.TRIGONOMETRIC,
-    :Cos => OperatorCategory.TRIGONOMETRIC,
-    :Tan => OperatorCategory.TRIGONOMETRIC,
-    :Arcsin => OperatorCategory.TRIGONOMETRIC,
-    :Arccos => OperatorCategory.TRIGONOMETRIC,
-    :Arctan => OperatorCategory.TRIGONOMETRIC,
-    :Sinh => OperatorCategory.TRIGONOMETRIC,
-    :Cosh => OperatorCategory.TRIGONOMETRIC,
-    :Tanh => OperatorCategory.TRIGONOMETRIC,
-    :Arcsinh => OperatorCategory.TRIGONOMETRIC,
-    :Arccosh => OperatorCategory.TRIGONOMETRIC,
-    :Arctanh => OperatorCategory.TRIGONOMETRIC,
-
-    # Logarithmic/exponential operators
-    :Log => OperatorCategory.LOGARITHMIC,
-    :Ln => OperatorCategory.LOGARITHMIC,
-    :Exp => OperatorCategory.LOGARITHMIC,
-    :Log10 => OperatorCategory.LOGARITHMIC,
-    :Log2 => OperatorCategory.LOGARITHMIC,
-
-    # Comparison operators
-    :Equal => OperatorCategory.COMPARISON,
-    :NotEqual => OperatorCategory.COMPARISON,
-    :Less => OperatorCategory.COMPARISON,
-    :Greater => OperatorCategory.COMPARISON,
-    :LessEqual => OperatorCategory.COMPARISON,
-    :GreaterEqual => OperatorCategory.COMPARISON,
-
-    # Logical operators
-    :And => OperatorCategory.LOGICAL,
-    :Or => OperatorCategory.LOGICAL,
-    :Not => OperatorCategory.LOGICAL,
-
-    # Set operators
-    :Union => OperatorCategory.SET,
-    :Intersection => OperatorCategory.SET,
-    :SetMinus => OperatorCategory.SET,
-
-    # Calculus operators
-    :Derivative => OperatorCategory.CALCULUS,
-    :Integrate => OperatorCategory.CALCULUS
-)
+const OPERATORS = _LOADED_OPERATORS
 
 """
     JULIA_FUNCTIONS::Dict{Symbol, Function}
@@ -111,52 +151,13 @@ const OPERATORS = Dict{Symbol, OperatorCategory.T}(
 Dictionary mapping MathJSON operators to Julia functions.
 Used for converting MathJSON expressions to executable Julia code
 and for Symbolics.jl integration.
+Loaded from data/julia_functions.json at module initialization.
 """
-const JULIA_FUNCTIONS = Dict{Symbol, Function}(
-    # Arithmetic
-    :Add => +,
-    :Subtract => -,
-    :Multiply => *,
-    :Divide => /,
-    :Power => ^,
-    :Negate => -,
-    :Sqrt => sqrt,
-    :Abs => abs,
+const JULIA_FUNCTIONS = _LOADED_FUNCTIONS
 
-    # Trigonometric
-    :Sin => sin,
-    :Cos => cos,
-    :Tan => tan,
-    :Arcsin => asin,
-    :Arccos => acos,
-    :Arctan => atan,
-    :Sinh => sinh,
-    :Cosh => cosh,
-    :Tanh => tanh,
-    :Arcsinh => asinh,
-    :Arccosh => acosh,
-    :Arctanh => atanh,
-
-    # Logarithmic/exponential
-    :Log => log,
-    :Ln => log,
-    :Exp => exp,
-    :Log10 => log10,
-    :Log2 => log2,
-
-    # Comparison
-    :Equal => ==,
-    :NotEqual => !=,
-    :Less => <,
-    :Greater => >,
-    :LessEqual => <=,
-    :GreaterEqual => >=,
-
-    # Logical
-    :And => (a, b) -> a && b,
-    :Or => (a, b) -> a || b,
-    :Not => !
-)
+# =============================================================================
+# API Functions
+# =============================================================================
 
 """
     get_category(op::Symbol) -> OperatorCategory.T

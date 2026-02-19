@@ -27,4 +27,11 @@ using Test
 
     # Include package quality tests
     include("package/aqua.jl")
+
+    # Include registry tests
+    @testset "Registry" begin
+        include("registry/loader.jl")
+        include("registry/schema.jl")
+        include("registry/backward_compat.jl")
+    end
 end

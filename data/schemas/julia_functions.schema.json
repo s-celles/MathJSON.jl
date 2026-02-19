@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/s-celles/MathJSON.jl/schemas/julia_functions.schema.json",
+  "title": "MathJSON Julia Function Mappings",
+  "description": "Schema for MathJSON.jl Julia function mapping definitions",
+  "type": "object",
+  "required": ["mappings"],
+  "properties": {
+    "mappings": {
+      "type": "array",
+      "description": "Array of operator to Julia function mappings",
+      "items": {
+        "type": "object",
+        "required": ["operator", "julia_function"],
+        "properties": {
+          "operator": {
+            "type": "string",
+            "minLength": 1,
+            "description": "MathJSON operator name (must exist in operators.json)"
+          },
+          "julia_function": {
+            "type": ["string", "null"],
+            "description": "Julia function name or null if unmapped"
+          },
+          "module": {
+            "type": "string",
+            "description": "Module containing the function (defaults to Base)"
+          },
+          "expression": {
+            "type": "string",
+            "description": "Key for special/anonymous function in SPECIAL_FUNCTIONS dict"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

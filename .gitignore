@@ -19,6 +19,13 @@
 !test/*.jl
 !test/package/
 !test/package/*.jl
+!test/registry/
+!test/registry/*.jl
+
+!data/
+!data/*.json
+!data/schemas/
+!data/schemas/*.json
 
 !docs/
 !docs/**

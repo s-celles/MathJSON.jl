@@ -1,0 +1,201 @@
+{
+  "mappings": [
+    {
+      "operator": "Add",
+      "julia_function": "+",
+      "module": "Base"
+    },
+    {
+      "operator": "Subtract",
+      "julia_function": "-",
+      "module": "Base"
+    },
+    {
+      "operator": "Multiply",
+      "julia_function": "*",
+      "module": "Base"
+    },
+    {
+      "operator": "Divide",
+      "julia_function": "/",
+      "module": "Base"
+    },
+    {
+      "operator": "Power",
+      "julia_function": "^",
+      "module": "Base"
+    },
+    {
+      "operator": "Negate",
+      "julia_function": "-",
+      "module": "Base"
+    },
+    {
+      "operator": "Root",
+      "julia_function": null
+    },
+    {
+      "operator": "Sqrt",
+      "julia_function": "sqrt",
+      "module": "Base"
+    },
+    {
+      "operator": "Abs",
+      "julia_function": "abs",
+      "module": "Base"
+    },
+    {
+      "operator": "Sin",
+      "julia_function": "sin",
+      "module": "Base"
+    },
+    {
+      "operator": "Cos",
+      "julia_function": "cos",
+      "module": "Base"
+    },
+    {
+      "operator": "Tan",
+      "julia_function": "tan",
+      "module": "Base"
+    },
+    {
+      "operator": "Arcsin",
+      "julia_function": "asin",
+      "module": "Base"
+    },
+    {
+      "operator": "Arccos",
+      "julia_function": "acos",
+      "module": "Base"
+    },
+    {
+      "operator": "Arctan",
+      "julia_function": "atan",
+      "module": "Base"
+    },
+    {
+      "operator": "Sinh",
+      "julia_function": "sinh",
+      "module": "Base"
+    },
+    {
+      "operator": "Cosh",
+      "julia_function": "cosh",
+      "module": "Base"
+    },
+    {
+      "operator": "Tanh",
+      "julia_function": "tanh",
+      "module": "Base"
+    },
+    {
+      "operator": "Arcsinh",
+      "julia_function": "asinh",
+      "module": "Base"
+    },
+    {
+      "operator": "Arccosh",
+      "julia_function": "acosh",
+      "module": "Base"
+    },
+    {
+      "operator": "Arctanh",
+      "julia_function": "atanh",
+      "module": "Base"
+    },
+    {
+      "operator": "Log",
+      "julia_function": "log",
+      "module": "Base"
+    },
+    {
+      "operator": "Ln",
+      "julia_function": "log",
+      "module": "Base"
+    },
+    {
+      "operator": "Exp",
+      "julia_function": "exp",
+      "module": "Base"
+    },
+    {
+      "operator": "Log10",
+      "julia_function": "log10",
+      "module": "Base"
+    },
+    {
+      "operator": "Log2",
+      "julia_function": "log2",
+      "module": "Base"
+    },
+    {
+      "operator": "Equal",
+      "julia_function": "==",
+      "module": "Base"
+    },
+    {
+      "operator": "NotEqual",
+      "julia_function": "!=",
+      "module": "Base"
+    },
+    {
+      "operator": "Less",
+      "julia_function": "<",
+      "module": "Base"
+    },
+    {
+      "operator": "Greater",
+      "julia_function": ">",
+      "module": "Base"
+    },
+    {
+      "operator": "LessEqual",
+      "julia_function": "<=",
+      "module": "Base"
+    },
+    {
+      "operator": "GreaterEqual",
+      "julia_function": ">=",
+      "module": "Base"
+    },
+    {
+      "operator": "And",
+      "julia_function": null,
+      "expression": "logical_and"
+    },
+    {
+      "operator": "Or",
+      "julia_function": null,
+      "expression": "logical_or"
+    },
+    {
+      "operator": "Not",
+      "julia_function": "!",
+      "module": "Base"
+    },
+    {
+      "operator": "Union",
+      "julia_function": "union",
+      "module": "Base"
+    },
+    {
+      "operator": "Intersection",
+      "julia_function": "intersect",
+      "module": "Base"
+    },
+    {
+      "operator": "SetMinus",
+      "julia_function": "setdiff",
+      "module": "Base"
+    },
+    {
+      "operator": "Derivative",
+      "julia_function": null
+    },
+    {
+      "operator": "Integrate",
+      "julia_function": null
+    }
+  ]
+}
