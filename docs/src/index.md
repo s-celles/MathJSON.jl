@@ -10,6 +10,7 @@ MathJSON is a JSON-based format for representing mathematical expressions, provi
 - **Generate MathJSON**: Serialize Julia expressions to MathJSON format
 - **Validation**: Verify expressions conform to the MathJSON specification
 - **Symbolics.jl Integration**: Bidirectional conversion with Symbolics.jl expressions
+- **Cortex Compute Engine Compatible**: Full support for all 382 operators from the official MathJSON standard library
 
 ## Installation
 
@@ -49,6 +50,21 @@ symbolic = to_symbolics(expr)
 @variables x
 mathjson = from_symbolics(x + 1)
 ```
+
+## Operator Registry
+
+MathJSON.jl includes an extensive operator registry based on the [Cortex Compute Engine](https://cortexjs.io/compute-engine/) standard library:
+
+- **382 operators** across 15 categories
+- **Arithmetic**: Add, Subtract, Multiply, Divide, Power, Sqrt, Abs, Exp, Log, ...
+- **Trigonometry**: Sin, Cos, Tan, Arcsin, Arccos, Arctan, Sinh, Cosh, ...
+- **Calculus**: D (derivative), Integrate, Limit, Sum, Product, ...
+- **Linear Algebra**: Determinant, Transpose, Inverse, Eigenvalues, ...
+- **Logic**: And, Or, Not, Xor, Implies, Equivalent, ...
+- **Statistics**: Mean, Median, Variance, StandardDeviation, ...
+- **And more**: Collections, Combinatorics, Number Theory, Polynomials, ...
+
+See the [Operator Registry](operators.md) page for complete documentation.
 
 ## API
 

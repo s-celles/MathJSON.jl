@@ -1,6 +1,10 @@
 # Operator Registry
 
-MathJSON.jl uses a JSON-based registry system to define operators, their categories, and Julia function mappings. This design allows extending operator support without modifying Julia source code.
+MathJSON.jl uses a JSON-based registry system based on the [Cortex Compute Engine](https://cortexjs.io/compute-engine/) standard. The registry defines operators, their categories, and Julia function mappings.
+
+## Cortex Compute Engine Compatibility
+
+The operator definitions are sourced from the Cortex Compute Engine's [OPERATORS.json](https://github.com/cortex-js/compute-engine/blob/main/src/math-json/OPERATORS.json), providing full compatibility with the MathJSON standard library.
 
 ## File Structure
 
@@ -9,7 +13,7 @@ The registry consists of three JSON files in the `data/` directory:
 ```
 data/
 ├── categories.json        # Category definitions
-├── operators.json         # Operator definitions with category references
+├── operators.json         # Operator definitions (Cortex format)
 ├── julia_functions.json   # Julia function mappings
 └── schemas/               # JSON Schema files for validation
     ├── categories.schema.json
@@ -21,15 +25,15 @@ data/
 
 ### categories.json
 
-Defines operator categories with unique identifiers, display names, and descriptions.
+Defines operator categories matching the Cortex Compute Engine standard.
 
 ```json
 {
   "categories": [
     {
-      "id": "ARITHMETIC",
+      "id": "Arithmetic",
       "name": "Arithmetic",
-      "description": "Basic math operations (+, -, *, /, ^)"
+      "description": "Basic arithmetic operations and functions"
     }
   ]
 }
@@ -37,23 +41,29 @@ Defines operator categories with unique identifiers, display names, and descript
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `id` | String | Yes | Uppercase identifier (e.g., "ARITHMETIC") |
+| `id` | String | Yes | Category identifier (e.g., "Arithmetic", "Trigonometry") |
 | `name` | String | Yes | Human-readable display name |
 | `description` | String | Yes | Brief description of the category |
 
 ### operators.json
 
-Defines operators with their category assignments and optional metadata.
+Defines operators using the Cortex Compute Engine format with full metadata.
 
 ```json
 {
   "operators": [
     {
       "name": "Add",
-      "category": "ARITHMETIC",
+      "category": "Arithmetic",
       "arity": "variadic",
-      "description": "Addition of two or more values",
-      "aliases": ["Plus", "Sum"]
+      "signature": "(value+) -> value",
+      "associative": true,
+      "commutative": true,
+      "idempotent": true,
+      "lazy": true,
+      "broadcastable": true,
+      "description": "Sum of two or more values.",
+      "wikidata": "Q32043"
     }
   ]
 }
@@ -63,9 +73,16 @@ Defines operators with their category assignments and optional metadata.
 |-------|------|----------|-------------|
 | `name` | String | Yes | MathJSON operator name |
 | `category` | String | Yes | Category ID (must exist in categories.json) |
-| `arity` | String/Integer | No | "unary", "binary", "variadic", or specific count |
+| `arity` | String | No | "1", "2", "variadic", "1+", "2+", etc. |
+| `signature` | String | No | Type signature (e.g., "(number, number) -> number") |
+| `associative` | Boolean | No | Whether the operator is associative |
+| `commutative` | Boolean | No | Whether the operator is commutative |
+| `idempotent` | Boolean | No | Whether the operator is idempotent |
+| `lazy` | Boolean | No | Whether the operator uses lazy evaluation |
+| `broadcastable` | Boolean | No | Whether the operator can be broadcast |
 | `description` | String | No | Brief description |
-| `aliases` | Array | No | Alternative operator names |
+| `wikidata` | String | No | Wikidata identifier (e.g., "Q32043") |
+| `examples` | Array | No | Example expressions as strings |
 
 ### julia_functions.json
 
@@ -100,9 +117,158 @@ Maps operators to Julia functions for expression evaluation.
 ```julia
 const SPECIAL_FUNCTIONS = Dict{String,Function}(
     "logical_and" => (a, b) -> a && b,
-    "logical_or" => (a, b) -> a || b
+    "logical_or" => (a, b) -> a || b,
+    "logical_nand" => (a, b) -> !(a && b),
+    "logical_nor" => (a, b) -> !(a || b),
+    "logical_implies" => (a, b) -> !a || b,
+    "logical_equivalent" => (a, b) -> a == b,
+    "square" => x -> x^2,
+    "nth_root" => (x, n) -> x^(1/n),
+    # ... and more
 )
 ```
+
+## Categories
+
+MathJSON.jl supports all 15 Cortex Compute Engine categories:
+
+| Category | Description |
+|----------|-------------|
+| Arithmetic | Basic arithmetic operations and functions |
+| Calculus | Calculus operations (derivatives, integrals, limits) |
+| Collections | Operations on collections (lists, sequences, sets) |
+| Colors | Color manipulation and conversion operations |
+| Combinatorics | Combinatorial functions (factorial, binomial, permutations) |
+| Control Structures | Control flow structures (if, loop, block) |
+| Core | Core language constructs and meta-operations |
+| Linear Algebra | Linear algebra operations (matrix, vector, decompositions) |
+| Logic | Logical operators and predicates |
+| Number Theory | Number theory functions (gcd, lcm, prime, divisibility) |
+| Polynomials | Polynomial arithmetic and manipulation |
+| Relational Operators | Comparison and relational operators |
+| Statistics | Statistical functions (mean, variance, distributions) |
+| Trigonometry | Trigonometric and hyperbolic functions |
+| Units | Physical units and quantity operations |
+
+## Selected Operators by Category
+
+### Arithmetic (Sample)
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Add | `+` | variadic | Sum of two or more values |
+| Subtract | `-` | 2 | Subtraction |
+| Multiply | `*` | variadic | Multiplication |
+| Divide | `/` | 2 | Division |
+| Power | `^` | 2 | Exponentiation |
+| Negate | `-` | 1 | Negation |
+| Sqrt | `sqrt` | 1 | Square root |
+| Abs | `abs` | 1 | Absolute value |
+| Exp | `exp` | 1 | Exponential (e^x) |
+| Ln | `log` | 1 | Natural logarithm |
+| Log | `log` | 1-2 | Logarithm |
+| Log10 | `log10` | 1 | Base-10 logarithm |
+| Log2 | `log2` | 1 | Base-2 logarithm |
+
+### Trigonometry (Sample)
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Sin | `sin` | 1 | Sine |
+| Cos | `cos` | 1 | Cosine |
+| Tan | `tan` | 1 | Tangent |
+| Arcsin | `asin` | 1 | Inverse sine |
+| Arccos | `acos` | 1 | Inverse cosine |
+| Arctan | `atan` | 1 | Inverse tangent |
+| Sinh | `sinh` | 1 | Hyperbolic sine |
+| Cosh | `cosh` | 1 | Hyperbolic cosine |
+| Tanh | `tanh` | 1 | Hyperbolic tangent |
+| Arsinh | `asinh` | 1 | Inverse hyperbolic sine |
+| Arcosh | `acosh` | 1 | Inverse hyperbolic cosine |
+| Artanh | `atanh` | 1 | Inverse hyperbolic tangent |
+
+### Relational Operators
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Equal | `==` | 2 | Equality |
+| NotEqual | `!=` | 2 | Inequality |
+| Less | `<` | 2 | Less than |
+| Greater | `>` | 2 | Greater than |
+| LessEqual | `<=` | 2 | Less than or equal |
+| GreaterEqual | `>=` | 2 | Greater than or equal |
+| ApproxEqual | `isapprox` | 2 | Approximate equality |
+
+### Logic
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| And | `(a, b) -> a && b` | variadic | Logical AND |
+| Or | `(a, b) -> a \|\| b` | variadic | Logical OR |
+| Not | `!` | 1 | Logical NOT |
+| Xor | `xor` | 2 | Exclusive OR |
+| Nand | `(a, b) -> !(a && b)` | 2 | NOT AND |
+| Nor | `(a, b) -> !(a \|\| b)` | 2 | NOT OR |
+| Implies | `(a, b) -> !a \|\| b` | 2 | Logical implication |
+| Equivalent | `(a, b) -> a == b` | 2 | Logical equivalence |
+
+### Collections (Sample)
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Union | `union` | variadic | Set union |
+| Intersection | `intersect` | variadic | Set intersection |
+| SetMinus | `setdiff` | 2 | Set difference |
+| First | `first` | 1 | First element |
+| Last | `last` | 1 | Last element |
+| Reverse | `reverse` | 1 | Reverse collection |
+| Sort | `sort` | 1 | Sort collection |
+| Unique | `unique` | 1 | Unique elements |
+
+### Calculus
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| D | - | 1-2 | Derivative |
+| ND | - | 1+ | Numerical derivative |
+| Integrate | - | 1+ | Integral |
+| NIntegrate | - | 1+ | Numerical integration |
+| Limit | - | 2+ | Limit |
+| Sum | `sum` | 1+ | Summation |
+| Product | `prod` | 1+ | Product |
+
+### Linear Algebra (Sample)
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Determinant | `det` | 1 | Matrix determinant |
+| Transpose | `transpose` | 1 | Matrix transpose |
+| Inverse | `inv` | 1 | Matrix inverse |
+| Trace | `tr` | 1 | Matrix trace |
+| Norm | `norm` | 1 | Vector/matrix norm |
+| Rank | `rank` | 1 | Matrix rank |
+| Eigenvalues | `eigvals` | 1 | Eigenvalues |
+| Eigenvectors | `eigvecs` | 1 | Eigenvectors |
+
+### Statistics (Sample)
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Mean | `mean` | 1 | Arithmetic mean |
+| Median | `median` | 1 | Median value |
+| Variance | `var` | 1 | Variance |
+| StandardDeviation | `std` | 1 | Standard deviation |
+| Min | `min` | variadic | Minimum |
+| Max | `max` | variadic | Maximum |
+
+### Combinatorics (Sample)
+
+| Operator | Julia Function | Arity | Description |
+|----------|---------------|-------|-------------|
+| Factorial | `factorial` | 1 | Factorial |
+| Binomial | `binomial` | 2 | Binomial coefficient |
+| GCD | `gcd` | 2+ | Greatest common divisor |
+| LCM | `lcm` | 2+ | Least common multiple |
 
 ## Adding New Operators
 
@@ -112,7 +278,7 @@ Add a new entry to `data/categories.json`:
 
 ```json
 {
-  "id": "MY_CATEGORY",
+  "id": "MyCategory",
   "name": "My Category",
   "description": "Description of the category"
 }
@@ -127,8 +293,14 @@ Add a new entry to `data/operators.json`:
 ```json
 {
   "name": "MyOperator",
-  "category": "MY_CATEGORY",
-  "arity": "binary",
+  "category": "MyCategory",
+  "arity": "2",
+  "signature": "(number, number) -> number",
+  "associative": false,
+  "commutative": true,
+  "idempotent": false,
+  "lazy": false,
+  "broadcastable": true,
   "description": "What this operator does"
 }
 ```
@@ -177,83 +349,6 @@ Validate your changes pass schema validation and all tests:
 ```bash
 julia --project=. -e 'using Pkg; Pkg.test()'
 ```
-
-## Current Operators
-
-### Arithmetic
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| Add | `+` | variadic | Addition |
-| Subtract | `-` | binary | Subtraction |
-| Multiply | `*` | variadic | Multiplication |
-| Divide | `/` | binary | Division |
-| Power | `^` | binary | Exponentiation |
-| Negate | `-` | unary | Negation |
-| Root | - | binary | Nth root |
-| Sqrt | `sqrt` | unary | Square root |
-| Abs | `abs` | unary | Absolute value |
-
-### Trigonometric
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| Sin | `sin` | unary | Sine |
-| Cos | `cos` | unary | Cosine |
-| Tan | `tan` | unary | Tangent |
-| Arcsin | `asin` | unary | Inverse sine |
-| Arccos | `acos` | unary | Inverse cosine |
-| Arctan | `atan` | unary | Inverse tangent |
-| Sinh | `sinh` | unary | Hyperbolic sine |
-| Cosh | `cosh` | unary | Hyperbolic cosine |
-| Tanh | `tanh` | unary | Hyperbolic tangent |
-| Arcsinh | `asinh` | unary | Inverse hyperbolic sine |
-| Arccosh | `acosh` | unary | Inverse hyperbolic cosine |
-| Arctanh | `atanh` | unary | Inverse hyperbolic tangent |
-
-### Logarithmic
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| Log | `log` | unary | Natural logarithm |
-| Ln | `log` | unary | Natural logarithm (alias) |
-| Exp | `exp` | unary | Exponential (e^x) |
-| Log10 | `log10` | unary | Base-10 logarithm |
-| Log2 | `log2` | unary | Base-2 logarithm |
-
-### Comparison
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| Equal | `==` | binary | Equality |
-| NotEqual | `!=` | binary | Inequality |
-| Less | `<` | binary | Less than |
-| Greater | `>` | binary | Greater than |
-| LessEqual | `<=` | binary | Less than or equal |
-| GreaterEqual | `>=` | binary | Greater than or equal |
-
-### Logical
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| And | `(a, b) -> a && b` | variadic | Logical AND |
-| Or | `(a, b) -> a \|\| b` | variadic | Logical OR |
-| Not | `!` | unary | Logical NOT |
-
-### Set
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| Union | `union` | variadic | Set union |
-| Intersection | `intersect` | variadic | Set intersection |
-| SetMinus | `setdiff` | binary | Set difference |
-
-### Calculus
-
-| Operator | Julia Function | Arity | Description |
-|----------|---------------|-------|-------------|
-| Derivative | - | binary | Derivative |
-| Integrate | - | variadic | Integral |
 
 ## API Reference
 
