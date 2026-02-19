@@ -257,18 +257,11 @@ julia --project=. -e 'using Pkg; Pkg.test()'
 
 ## API Reference
 
-### Functions
+See the [API Reference](api.md#Operators) page for documentation of operator-related functions (`get_category`, `get_julia_function`, `is_known_operator`) and types (`OperatorCategory`).
+
+### Registry Types
 
 ```@docs
-get_category
-get_julia_function
-is_known_operator
-```
-
-### Types
-
-```@docs
-MathJSON.OperatorCategory
 MathJSON.CategoryInfo
 MathJSON.OperatorInfo
 MathJSON.RegistryLoadError
