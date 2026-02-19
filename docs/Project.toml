@@ -1,0 +1,6 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+MathJSON = "77215b4b-6f01-425c-beac-950ae6536d4d"
+
+[compat]
+Documenter = "1"
