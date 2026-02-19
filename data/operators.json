@@ -58,6 +58,102 @@
       "description": "Absolute value"
     },
     {
+      "name": "Square",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Square of a value (x^2)"
+    },
+    {
+      "name": "Max",
+      "category": "ARITHMETIC",
+      "arity": "variadic",
+      "description": "Maximum of values"
+    },
+    {
+      "name": "Min",
+      "category": "ARITHMETIC",
+      "arity": "variadic",
+      "description": "Minimum of values"
+    },
+    {
+      "name": "Mod",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Modulo operation"
+    },
+    {
+      "name": "Rem",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Remainder after division"
+    },
+    {
+      "name": "Gcd",
+      "category": "NUMBER_THEORY",
+      "arity": "variadic",
+      "description": "Greatest common divisor"
+    },
+    {
+      "name": "Lcm",
+      "category": "NUMBER_THEORY",
+      "arity": "variadic",
+      "description": "Least common multiple"
+    },
+    {
+      "name": "Sign",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Sign of a number (-1, 0, or 1)"
+    },
+    {
+      "name": "Clamp",
+      "category": "ARITHMETIC",
+      "arity": 3,
+      "description": "Clamp a value between min and max"
+    },
+    {
+      "name": "Numerator",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Numerator of a rational number"
+    },
+    {
+      "name": "Denominator",
+      "category": "ARITHMETIC",
+      "arity": "unary",
+      "description": "Denominator of a rational number"
+    },
+    {
+      "name": "Rational",
+      "category": "ARITHMETIC",
+      "arity": "binary",
+      "description": "Create a rational number from numerator and denominator"
+    },
+    {
+      "name": "Ceil",
+      "category": "ROUNDING",
+      "arity": "unary",
+      "description": "Ceiling function (round up)"
+    },
+    {
+      "name": "Floor",
+      "category": "ROUNDING",
+      "arity": "unary",
+      "description": "Floor function (round down)"
+    },
+    {
+      "name": "Round",
+      "category": "ROUNDING",
+      "arity": "unary",
+      "description": "Round to nearest integer"
+    },
+    {
+      "name": "Trunc",
+      "category": "ROUNDING",
+      "arity": "unary",
+      "description": "Truncate toward zero"
+    },
+    {
       "name": "Sin",
       "category": "TRIGONOMETRIC",
       "arity": "unary",
@@ -74,6 +170,24 @@
       "category": "TRIGONOMETRIC",
       "arity": "unary",
       "description": "Tangent function"
+    },
+    {
+      "name": "Cot",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Cotangent function"
+    },
+    {
+      "name": "Sec",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Secant function"
+    },
+    {
+      "name": "Csc",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Cosecant function"
     },
     {
       "name": "Arcsin",
@@ -97,6 +211,34 @@
       "aliases": ["Atan"]
     },
     {
+      "name": "Arctan2",
+      "category": "TRIGONOMETRIC",
+      "arity": "binary",
+      "description": "Two-argument inverse tangent",
+      "aliases": ["Atan2"]
+    },
+    {
+      "name": "Arccot",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse cotangent function",
+      "aliases": ["Acot"]
+    },
+    {
+      "name": "Arcsec",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse secant function",
+      "aliases": ["Asec"]
+    },
+    {
+      "name": "Arccsc",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse cosecant function",
+      "aliases": ["Acsc"]
+    },
+    {
       "name": "Sinh",
       "category": "TRIGONOMETRIC",
       "arity": "unary",
@@ -113,6 +255,24 @@
       "category": "TRIGONOMETRIC",
       "arity": "unary",
       "description": "Hyperbolic tangent function"
+    },
+    {
+      "name": "Coth",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Hyperbolic cotangent function"
+    },
+    {
+      "name": "Sech",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Hyperbolic secant function"
+    },
+    {
+      "name": "Csch",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Hyperbolic cosecant function"
     },
     {
       "name": "Arcsinh",
@@ -134,6 +294,51 @@
       "arity": "unary",
       "description": "Inverse hyperbolic tangent function",
       "aliases": ["Atanh"]
+    },
+    {
+      "name": "Arccoth",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse hyperbolic cotangent function",
+      "aliases": ["Acoth"]
+    },
+    {
+      "name": "Arcsech",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse hyperbolic secant function",
+      "aliases": ["Asech"]
+    },
+    {
+      "name": "Arccsch",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Inverse hyperbolic cosecant function",
+      "aliases": ["Acsch"]
+    },
+    {
+      "name": "Sinc",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Sinc function (sin(x)/x)"
+    },
+    {
+      "name": "Hypot",
+      "category": "TRIGONOMETRIC",
+      "arity": "binary",
+      "description": "Hypotenuse (sqrt(x^2 + y^2))"
+    },
+    {
+      "name": "Deg2Rad",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Convert degrees to radians"
+    },
+    {
+      "name": "Rad2Deg",
+      "category": "TRIGONOMETRIC",
+      "arity": "unary",
+      "description": "Convert radians to degrees"
     },
     {
       "name": "Log",
@@ -164,6 +369,30 @@
       "category": "LOGARITHMIC",
       "arity": "unary",
       "description": "Base-2 logarithm"
+    },
+    {
+      "name": "Exp2",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Base-2 exponential (2^x)"
+    },
+    {
+      "name": "Exp10",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "Base-10 exponential (10^x)"
+    },
+    {
+      "name": "Expm1",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "exp(x) - 1 (accurate for small x)"
+    },
+    {
+      "name": "Log1p",
+      "category": "LOGARITHMIC",
+      "arity": "unary",
+      "description": "log(1 + x) (accurate for small x)"
     },
     {
       "name": "Equal",
@@ -202,6 +431,12 @@
       "description": "Greater than or equal comparison"
     },
     {
+      "name": "Approx",
+      "category": "COMPARISON",
+      "arity": "binary",
+      "description": "Approximate equality"
+    },
+    {
       "name": "And",
       "category": "LOGICAL",
       "arity": "variadic",
@@ -218,6 +453,36 @@
       "category": "LOGICAL",
       "arity": "unary",
       "description": "Logical NOT"
+    },
+    {
+      "name": "Xor",
+      "category": "LOGICAL",
+      "arity": "binary",
+      "description": "Logical exclusive OR"
+    },
+    {
+      "name": "Nand",
+      "category": "LOGICAL",
+      "arity": "binary",
+      "description": "Logical NOT AND"
+    },
+    {
+      "name": "Nor",
+      "category": "LOGICAL",
+      "arity": "binary",
+      "description": "Logical NOT OR"
+    },
+    {
+      "name": "Implies",
+      "category": "LOGICAL",
+      "arity": "binary",
+      "description": "Logical implication"
+    },
+    {
+      "name": "Equivalent",
+      "category": "LOGICAL",
+      "arity": "binary",
+      "description": "Logical equivalence (biconditional)"
     },
     {
       "name": "Union",
@@ -238,6 +503,54 @@
       "description": "Set difference"
     },
     {
+      "name": "SymmetricDifference",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Symmetric set difference"
+    },
+    {
+      "name": "CartesianProduct",
+      "category": "SET",
+      "arity": "variadic",
+      "description": "Cartesian product of sets"
+    },
+    {
+      "name": "Element",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Set membership test"
+    },
+    {
+      "name": "NotElement",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Negated set membership test"
+    },
+    {
+      "name": "Subset",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Proper subset test"
+    },
+    {
+      "name": "SubsetEqual",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Subset or equal test"
+    },
+    {
+      "name": "Superset",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Proper superset test"
+    },
+    {
+      "name": "SupersetEqual",
+      "category": "SET",
+      "arity": "binary",
+      "description": "Superset or equal test"
+    },
+    {
       "name": "Derivative",
       "category": "CALCULUS",
       "arity": "binary",
@@ -248,6 +561,336 @@
       "category": "CALCULUS",
       "arity": "variadic",
       "description": "Integral of an expression"
+    },
+    {
+      "name": "D",
+      "category": "CALCULUS",
+      "arity": "binary",
+      "description": "Symbolic derivative"
+    },
+    {
+      "name": "Limit",
+      "category": "CALCULUS",
+      "arity": "variadic",
+      "description": "Limit of an expression"
+    },
+    {
+      "name": "Factorial",
+      "category": "COMBINATORICS",
+      "arity": "unary",
+      "description": "Factorial function (n!)"
+    },
+    {
+      "name": "Binomial",
+      "category": "COMBINATORICS",
+      "arity": "binary",
+      "description": "Binomial coefficient (n choose k)"
+    },
+    {
+      "name": "Fibonacci",
+      "category": "COMBINATORICS",
+      "arity": "unary",
+      "description": "Fibonacci number"
+    },
+    {
+      "name": "Permutations",
+      "category": "COMBINATORICS",
+      "arity": "binary",
+      "description": "Number of permutations"
+    },
+    {
+      "name": "Gamma",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Gamma function"
+    },
+    {
+      "name": "LogGamma",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Log of gamma function"
+    },
+    {
+      "name": "Beta",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "binary",
+      "description": "Beta function"
+    },
+    {
+      "name": "Erf",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Error function"
+    },
+    {
+      "name": "Erfc",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Complementary error function"
+    },
+    {
+      "name": "Erfinv",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Inverse error function"
+    },
+    {
+      "name": "Erfcinv",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Inverse complementary error function"
+    },
+    {
+      "name": "Zeta",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Riemann zeta function"
+    },
+    {
+      "name": "Digamma",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Digamma function (psi)"
+    },
+    {
+      "name": "BesselJ",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "binary",
+      "description": "Bessel function of the first kind"
+    },
+    {
+      "name": "BesselY",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "binary",
+      "description": "Bessel function of the second kind"
+    },
+    {
+      "name": "BesselI",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "binary",
+      "description": "Modified Bessel function of the first kind"
+    },
+    {
+      "name": "BesselK",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "binary",
+      "description": "Modified Bessel function of the second kind"
+    },
+    {
+      "name": "AiryAi",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Airy function of the first kind"
+    },
+    {
+      "name": "AiryBi",
+      "category": "SPECIAL_FUNCTIONS",
+      "arity": "unary",
+      "description": "Airy function of the second kind"
+    },
+    {
+      "name": "Real",
+      "category": "COMPLEX",
+      "arity": "unary",
+      "description": "Real part of complex number"
+    },
+    {
+      "name": "Imag",
+      "category": "COMPLEX",
+      "arity": "unary",
+      "description": "Imaginary part of complex number"
+    },
+    {
+      "name": "Conjugate",
+      "category": "COMPLEX",
+      "arity": "unary",
+      "description": "Complex conjugate"
+    },
+    {
+      "name": "Arg",
+      "category": "COMPLEX",
+      "arity": "unary",
+      "description": "Argument (phase) of complex number"
+    },
+    {
+      "name": "Complex",
+      "category": "COMPLEX",
+      "arity": "binary",
+      "description": "Create complex number from real and imaginary parts"
+    },
+    {
+      "name": "First",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "First element of a collection"
+    },
+    {
+      "name": "Last",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Last element of a collection"
+    },
+    {
+      "name": "Rest",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "All elements except the first"
+    },
+    {
+      "name": "Most",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "All elements except the last"
+    },
+    {
+      "name": "Length",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Number of elements in a collection"
+    },
+    {
+      "name": "Reverse",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Reverse a collection"
+    },
+    {
+      "name": "Sort",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Sort a collection"
+    },
+    {
+      "name": "Take",
+      "category": "COLLECTIONS",
+      "arity": "binary",
+      "description": "Take first n elements"
+    },
+    {
+      "name": "Drop",
+      "category": "COLLECTIONS",
+      "arity": "binary",
+      "description": "Drop first n elements"
+    },
+    {
+      "name": "At",
+      "category": "COLLECTIONS",
+      "arity": "binary",
+      "description": "Element at index"
+    },
+    {
+      "name": "Join",
+      "category": "COLLECTIONS",
+      "arity": "variadic",
+      "description": "Concatenate collections"
+    },
+    {
+      "name": "Unique",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Remove duplicate elements"
+    },
+    {
+      "name": "Range",
+      "category": "COLLECTIONS",
+      "arity": "variadic",
+      "description": "Create a range of values"
+    },
+    {
+      "name": "Map",
+      "category": "COLLECTIONS",
+      "arity": "binary",
+      "description": "Apply function to each element"
+    },
+    {
+      "name": "Filter",
+      "category": "COLLECTIONS",
+      "arity": "binary",
+      "description": "Filter elements by predicate"
+    },
+    {
+      "name": "Reduce",
+      "category": "COLLECTIONS",
+      "arity": "variadic",
+      "description": "Reduce collection with binary function"
+    },
+    {
+      "name": "Zip",
+      "category": "COLLECTIONS",
+      "arity": "variadic",
+      "description": "Combine collections element-wise"
+    },
+    {
+      "name": "Sum",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Sum of collection elements"
+    },
+    {
+      "name": "Product",
+      "category": "COLLECTIONS",
+      "arity": "unary",
+      "description": "Product of collection elements"
+    },
+    {
+      "name": "Mean",
+      "category": "STATISTICS",
+      "arity": "unary",
+      "description": "Arithmetic mean"
+    },
+    {
+      "name": "Median",
+      "category": "STATISTICS",
+      "arity": "unary",
+      "description": "Median value"
+    },
+    {
+      "name": "Variance",
+      "category": "STATISTICS",
+      "arity": "unary",
+      "description": "Variance"
+    },
+    {
+      "name": "StandardDeviation",
+      "category": "STATISTICS",
+      "arity": "unary",
+      "description": "Standard deviation"
+    },
+    {
+      "name": "IsPrime",
+      "category": "NUMBER_THEORY",
+      "arity": "unary",
+      "description": "Test if number is prime"
+    },
+    {
+      "name": "Prime",
+      "category": "NUMBER_THEORY",
+      "arity": "unary",
+      "description": "Nth prime number"
+    },
+    {
+      "name": "PrimeFactors",
+      "category": "NUMBER_THEORY",
+      "arity": "unary",
+      "description": "Prime factorization"
+    },
+    {
+      "name": "Divisors",
+      "category": "NUMBER_THEORY",
+      "arity": "unary",
+      "description": "List of divisors"
+    },
+    {
+      "name": "IsEven",
+      "category": "NUMBER_THEORY",
+      "arity": "unary",
+      "description": "Test if number is even"
+    },
+    {
+      "name": "IsOdd",
+      "category": "NUMBER_THEORY",
+      "arity": "unary",
+      "description": "Test if number is odd"
     }
   ]
 }

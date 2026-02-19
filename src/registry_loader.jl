@@ -76,8 +76,34 @@ Dictionary mapping special expression keys to anonymous functions.
 Used for operators that cannot be represented as simple function references.
 """
 const SPECIAL_FUNCTIONS = Dict{String,Function}(
+    # Logical operators
     "logical_and" => (a, b) -> a && b,
-    "logical_or" => (a, b) -> a || b
+    "logical_or" => (a, b) -> a || b,
+    "logical_nand" => (a, b) -> !(a && b),
+    "logical_nor" => (a, b) -> !(a || b),
+    "logical_implies" => (a, b) -> !a || b,
+    "logical_equivalent" => (a, b) -> a == b,
+    # Set operators
+    "not_element" => (x, s) -> !(x in s),
+    "proper_subset" => (a, b) -> a ⊆ b && a != b,
+    "proper_superset" => (a, b) -> b ⊆ a && a != b,
+    "issuperset" => (a, b) -> b ⊆ a,
+    # Arithmetic
+    "square" => x -> x^2,
+    # Collection operators
+    "rest" => x -> x[2:end],
+    "most" => x -> x[1:end-1],
+    "take_n" => (x, n) -> x[1:min(n, length(x))],
+    "drop_n" => (x, n) -> x[min(n+1, length(x)+1):end],
+    "make_range" => (args...) -> begin
+        if length(args) == 1
+            1:args[1]
+        elseif length(args) == 2
+            args[1]:args[2]
+        else
+            args[1]:args[2]:args[3]
+        end
+    end
 )
 
 # =============================================================================

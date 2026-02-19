@@ -104,6 +104,16 @@
       "id": "UNITS",
       "name": "Units",
       "description": "Physical units and quantities"
+    },
+    {
+      "id": "ROUNDING",
+      "name": "Rounding",
+      "description": "Rounding and truncation functions"
+    },
+    {
+      "id": "POLYNOMIAL",
+      "name": "Polynomial",
+      "description": "Polynomial arithmetic operations"
     }
   ]
 }

@@ -56,6 +56,8 @@ Enum representing the categories of MathJSON operators.
     FUNCTIONS
     STRINGS
     UNITS
+    ROUNDING
+    POLYNOMIAL
 end
 
 end # module OperatorCategory
@@ -90,7 +92,9 @@ const CATEGORY_ENUM_MAP = Dict{String,OperatorCategory.T}(
     "CONTROL_STRUCTURES" => OperatorCategory.CONTROL_STRUCTURES,
     "FUNCTIONS" => OperatorCategory.FUNCTIONS,
     "STRINGS" => OperatorCategory.STRINGS,
-    "UNITS" => OperatorCategory.UNITS
+    "UNITS" => OperatorCategory.UNITS,
+    "ROUNDING" => OperatorCategory.ROUNDING,
+    "POLYNOMIAL" => OperatorCategory.POLYNOMIAL
 )
 
 # =============================================================================

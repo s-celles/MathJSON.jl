@@ -45,6 +45,86 @@
       "module": "Base"
     },
     {
+      "operator": "Square",
+      "julia_function": null,
+      "expression": "square"
+    },
+    {
+      "operator": "Max",
+      "julia_function": "max",
+      "module": "Base"
+    },
+    {
+      "operator": "Min",
+      "julia_function": "min",
+      "module": "Base"
+    },
+    {
+      "operator": "Mod",
+      "julia_function": "mod",
+      "module": "Base"
+    },
+    {
+      "operator": "Rem",
+      "julia_function": "rem",
+      "module": "Base"
+    },
+    {
+      "operator": "Sign",
+      "julia_function": "sign",
+      "module": "Base"
+    },
+    {
+      "operator": "Clamp",
+      "julia_function": "clamp",
+      "module": "Base"
+    },
+    {
+      "operator": "Numerator",
+      "julia_function": "numerator",
+      "module": "Base"
+    },
+    {
+      "operator": "Denominator",
+      "julia_function": "denominator",
+      "module": "Base"
+    },
+    {
+      "operator": "Rational",
+      "julia_function": "//",
+      "module": "Base"
+    },
+    {
+      "operator": "Ceil",
+      "julia_function": "ceil",
+      "module": "Base"
+    },
+    {
+      "operator": "Floor",
+      "julia_function": "floor",
+      "module": "Base"
+    },
+    {
+      "operator": "Round",
+      "julia_function": "round",
+      "module": "Base"
+    },
+    {
+      "operator": "Trunc",
+      "julia_function": "trunc",
+      "module": "Base"
+    },
+    {
+      "operator": "Gcd",
+      "julia_function": "gcd",
+      "module": "Base"
+    },
+    {
+      "operator": "Lcm",
+      "julia_function": "lcm",
+      "module": "Base"
+    },
+    {
       "operator": "Sin",
       "julia_function": "sin",
       "module": "Base"
@@ -57,6 +137,21 @@
     {
       "operator": "Tan",
       "julia_function": "tan",
+      "module": "Base"
+    },
+    {
+      "operator": "Cot",
+      "julia_function": "cot",
+      "module": "Base"
+    },
+    {
+      "operator": "Sec",
+      "julia_function": "sec",
+      "module": "Base"
+    },
+    {
+      "operator": "Csc",
+      "julia_function": "csc",
       "module": "Base"
     },
     {
@@ -75,6 +170,26 @@
       "module": "Base"
     },
     {
+      "operator": "Arctan2",
+      "julia_function": "atan",
+      "module": "Base"
+    },
+    {
+      "operator": "Arccot",
+      "julia_function": "acot",
+      "module": "Base"
+    },
+    {
+      "operator": "Arcsec",
+      "julia_function": "asec",
+      "module": "Base"
+    },
+    {
+      "operator": "Arccsc",
+      "julia_function": "acsc",
+      "module": "Base"
+    },
+    {
       "operator": "Sinh",
       "julia_function": "sinh",
       "module": "Base"
@@ -90,6 +205,21 @@
       "module": "Base"
     },
     {
+      "operator": "Coth",
+      "julia_function": "coth",
+      "module": "Base"
+    },
+    {
+      "operator": "Sech",
+      "julia_function": "sech",
+      "module": "Base"
+    },
+    {
+      "operator": "Csch",
+      "julia_function": "csch",
+      "module": "Base"
+    },
+    {
       "operator": "Arcsinh",
       "julia_function": "asinh",
       "module": "Base"
@@ -102,6 +232,41 @@
     {
       "operator": "Arctanh",
       "julia_function": "atanh",
+      "module": "Base"
+    },
+    {
+      "operator": "Arccoth",
+      "julia_function": "acoth",
+      "module": "Base"
+    },
+    {
+      "operator": "Arcsech",
+      "julia_function": "asech",
+      "module": "Base"
+    },
+    {
+      "operator": "Arccsch",
+      "julia_function": "acsch",
+      "module": "Base"
+    },
+    {
+      "operator": "Sinc",
+      "julia_function": "sinc",
+      "module": "Base"
+    },
+    {
+      "operator": "Hypot",
+      "julia_function": "hypot",
+      "module": "Base"
+    },
+    {
+      "operator": "Deg2Rad",
+      "julia_function": "deg2rad",
+      "module": "Base"
+    },
+    {
+      "operator": "Rad2Deg",
+      "julia_function": "rad2deg",
       "module": "Base"
     },
     {
@@ -127,6 +292,26 @@
     {
       "operator": "Log2",
       "julia_function": "log2",
+      "module": "Base"
+    },
+    {
+      "operator": "Exp2",
+      "julia_function": "exp2",
+      "module": "Base"
+    },
+    {
+      "operator": "Exp10",
+      "julia_function": "exp10",
+      "module": "Base"
+    },
+    {
+      "operator": "Expm1",
+      "julia_function": "expm1",
+      "module": "Base"
+    },
+    {
+      "operator": "Log1p",
+      "julia_function": "log1p",
       "module": "Base"
     },
     {
@@ -160,6 +345,11 @@
       "module": "Base"
     },
     {
+      "operator": "Approx",
+      "julia_function": "isapprox",
+      "module": "Base"
+    },
+    {
       "operator": "And",
       "julia_function": null,
       "expression": "logical_and"
@@ -173,6 +363,31 @@
       "operator": "Not",
       "julia_function": "!",
       "module": "Base"
+    },
+    {
+      "operator": "Xor",
+      "julia_function": "xor",
+      "module": "Base"
+    },
+    {
+      "operator": "Nand",
+      "julia_function": null,
+      "expression": "logical_nand"
+    },
+    {
+      "operator": "Nor",
+      "julia_function": null,
+      "expression": "logical_nor"
+    },
+    {
+      "operator": "Implies",
+      "julia_function": null,
+      "expression": "logical_implies"
+    },
+    {
+      "operator": "Equivalent",
+      "julia_function": null,
+      "expression": "logical_equivalent"
     },
     {
       "operator": "Union",
@@ -190,12 +405,322 @@
       "module": "Base"
     },
     {
+      "operator": "SymmetricDifference",
+      "julia_function": "symdiff",
+      "module": "Base"
+    },
+    {
+      "operator": "CartesianProduct",
+      "julia_function": null
+    },
+    {
+      "operator": "Element",
+      "julia_function": "in",
+      "module": "Base"
+    },
+    {
+      "operator": "NotElement",
+      "julia_function": null,
+      "expression": "not_element"
+    },
+    {
+      "operator": "Subset",
+      "julia_function": null,
+      "expression": "proper_subset"
+    },
+    {
+      "operator": "SubsetEqual",
+      "julia_function": "issubset",
+      "module": "Base"
+    },
+    {
+      "operator": "Superset",
+      "julia_function": null,
+      "expression": "proper_superset"
+    },
+    {
+      "operator": "SupersetEqual",
+      "julia_function": null,
+      "expression": "issuperset"
+    },
+    {
       "operator": "Derivative",
       "julia_function": null
     },
     {
       "operator": "Integrate",
       "julia_function": null
+    },
+    {
+      "operator": "D",
+      "julia_function": null
+    },
+    {
+      "operator": "Limit",
+      "julia_function": null
+    },
+    {
+      "operator": "Factorial",
+      "julia_function": "factorial",
+      "module": "Base"
+    },
+    {
+      "operator": "Binomial",
+      "julia_function": "binomial",
+      "module": "Base"
+    },
+    {
+      "operator": "Fibonacci",
+      "julia_function": null
+    },
+    {
+      "operator": "Permutations",
+      "julia_function": null
+    },
+    {
+      "operator": "Gamma",
+      "julia_function": "gamma",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "LogGamma",
+      "julia_function": "loggamma",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Beta",
+      "julia_function": "beta",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Erf",
+      "julia_function": "erf",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Erfc",
+      "julia_function": "erfc",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Erfinv",
+      "julia_function": "erfinv",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Erfcinv",
+      "julia_function": "erfcinv",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Zeta",
+      "julia_function": "zeta",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Digamma",
+      "julia_function": "digamma",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "BesselJ",
+      "julia_function": "besselj",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "BesselY",
+      "julia_function": "bessely",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "BesselI",
+      "julia_function": "besseli",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "BesselK",
+      "julia_function": "besselk",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "AiryAi",
+      "julia_function": "airyai",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "AiryBi",
+      "julia_function": "airybi",
+      "module": "SpecialFunctions"
+    },
+    {
+      "operator": "Real",
+      "julia_function": "real",
+      "module": "Base"
+    },
+    {
+      "operator": "Imag",
+      "julia_function": "imag",
+      "module": "Base"
+    },
+    {
+      "operator": "Conjugate",
+      "julia_function": "conj",
+      "module": "Base"
+    },
+    {
+      "operator": "Arg",
+      "julia_function": "angle",
+      "module": "Base"
+    },
+    {
+      "operator": "Complex",
+      "julia_function": "complex",
+      "module": "Base"
+    },
+    {
+      "operator": "First",
+      "julia_function": "first",
+      "module": "Base"
+    },
+    {
+      "operator": "Last",
+      "julia_function": "last",
+      "module": "Base"
+    },
+    {
+      "operator": "Rest",
+      "julia_function": null,
+      "expression": "rest"
+    },
+    {
+      "operator": "Most",
+      "julia_function": null,
+      "expression": "most"
+    },
+    {
+      "operator": "Length",
+      "julia_function": "length",
+      "module": "Base"
+    },
+    {
+      "operator": "Reverse",
+      "julia_function": "reverse",
+      "module": "Base"
+    },
+    {
+      "operator": "Sort",
+      "julia_function": "sort",
+      "module": "Base"
+    },
+    {
+      "operator": "Take",
+      "julia_function": null,
+      "expression": "take_n"
+    },
+    {
+      "operator": "Drop",
+      "julia_function": null,
+      "expression": "drop_n"
+    },
+    {
+      "operator": "At",
+      "julia_function": "getindex",
+      "module": "Base"
+    },
+    {
+      "operator": "Join",
+      "julia_function": "vcat",
+      "module": "Base"
+    },
+    {
+      "operator": "Unique",
+      "julia_function": "unique",
+      "module": "Base"
+    },
+    {
+      "operator": "Range",
+      "julia_function": null,
+      "expression": "make_range"
+    },
+    {
+      "operator": "Map",
+      "julia_function": "map",
+      "module": "Base"
+    },
+    {
+      "operator": "Filter",
+      "julia_function": "filter",
+      "module": "Base"
+    },
+    {
+      "operator": "Reduce",
+      "julia_function": "reduce",
+      "module": "Base"
+    },
+    {
+      "operator": "Zip",
+      "julia_function": "zip",
+      "module": "Base"
+    },
+    {
+      "operator": "Sum",
+      "julia_function": "sum",
+      "module": "Base"
+    },
+    {
+      "operator": "Product",
+      "julia_function": "prod",
+      "module": "Base"
+    },
+    {
+      "operator": "Mean",
+      "julia_function": "mean",
+      "module": "Statistics"
+    },
+    {
+      "operator": "Median",
+      "julia_function": "median",
+      "module": "Statistics"
+    },
+    {
+      "operator": "Variance",
+      "julia_function": "var",
+      "module": "Statistics"
+    },
+    {
+      "operator": "StandardDeviation",
+      "julia_function": "std",
+      "module": "Statistics"
+    },
+    {
+      "operator": "IsPrime",
+      "julia_function": "isprime",
+      "module": "Primes"
+    },
+    {
+      "operator": "Prime",
+      "julia_function": "prime",
+      "module": "Primes"
+    },
+    {
+      "operator": "PrimeFactors",
+      "julia_function": "factor",
+      "module": "Primes"
+    },
+    {
+      "operator": "Divisors",
+      "julia_function": "divisors",
+      "module": "Primes"
+    },
+    {
+      "operator": "IsEven",
+      "julia_function": "iseven",
+      "module": "Base"
+    },
+    {
+      "operator": "IsOdd",
+      "julia_function": "isodd",
+      "module": "Base"
     }
   ]
 }
