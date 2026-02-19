@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/s-celles/MathJSON.jl/schemas/operators.schema.json",
   "title": "MathJSON Operators",
-  "description": "Schema for MathJSON.jl operator definitions",
+  "description": "Schema for MathJSON operator definitions (compatible with Cortex Compute Engine)",
   "type": "object",
   "required": ["operators"],
   "properties": {
@@ -20,26 +20,54 @@
           },
           "category": {
             "type": "string",
-            "description": "Category ID reference (must exist in categories.json)"
+            "description": "Category name (must exist in categories.json)"
           },
           "arity": {
-            "oneOf": [
-              {"type": "string", "enum": ["unary", "binary", "variadic"]},
-              {"type": "integer", "minimum": 0}
-            ],
-            "description": "Operator arity - unary, binary, variadic, or specific count"
+            "type": "string",
+            "description": "Operator arity - e.g., '1', '2', 'variadic', '1+', '2+'"
+          },
+          "signature": {
+            "type": "string",
+            "description": "Type signature of the operator, e.g., '(number, number) -> number'"
+          },
+          "associative": {
+            "type": "boolean",
+            "description": "Whether the operator is associative"
+          },
+          "commutative": {
+            "type": "boolean",
+            "description": "Whether the operator is commutative"
+          },
+          "idempotent": {
+            "type": "boolean",
+            "description": "Whether the operator is idempotent"
+          },
+          "lazy": {
+            "type": "boolean",
+            "description": "Whether the operator uses lazy evaluation"
+          },
+          "broadcastable": {
+            "type": "boolean",
+            "description": "Whether the operator can be broadcast over collections"
           },
           "description": {
             "type": "string",
             "description": "Brief description of the operator"
           },
-          "aliases": {
+          "wikidata": {
+            "type": "string",
+            "pattern": "^Q[0-9]+$",
+            "description": "Wikidata identifier for the operator"
+          },
+          "examples": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Alternative names for this operator"
+            "description": "Example expressions using this operator",
+            "items": {
+              "type": "string",
+              "description": "Example expression as a string"
+            }
           }
-        },
-        "additionalProperties": false
+        }
       },
       "minItems": 1
     }

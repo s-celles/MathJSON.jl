@@ -7,27 +7,39 @@ using MathJSON: SPECIAL_FUNCTIONS
 @testset "Registry Loader" begin
     @testset "Data Types" begin
         @testset "CategoryInfo" begin
-            cat = CategoryInfo("ARITHMETIC", "Arithmetic", "Basic math operations")
-            @test cat.id == "ARITHMETIC"
+            cat = CategoryInfo("Arithmetic", "Arithmetic", "Basic math operations")
+            @test cat.id == "Arithmetic"
             @test cat.name == "Arithmetic"
             @test cat.description == "Basic math operations"
         end
 
         @testset "OperatorInfo" begin
-            op = OperatorInfo(:Add, "ARITHMETIC", "variadic", "Addition", ["Plus", "Sum"])
+            # Test with Cortex Compute Engine format
+            op = OperatorInfo(
+                :Add, "Arithmetic", "variadic", "(number, number) -> number",
+                true, true, false, false, true, "Addition", "Q32043"
+            )
             @test op.name == :Add
-            @test op.category == "ARITHMETIC"
+            @test op.category == "Arithmetic"
             @test op.arity == "variadic"
+            @test op.signature == "(number, number) -> number"
+            @test op.associative == true
+            @test op.commutative == true
+            @test op.idempotent == false
+            @test op.lazy == false
+            @test op.broadcastable == true
             @test op.description == "Addition"
-            @test op.aliases == ["Plus", "Sum"]
+            @test op.wikidata == "Q32043"
 
             # Test with minimal fields
-            op_minimal = OperatorInfo(:Sin, "TRIGONOMETRIC", nothing, nothing, String[])
+            op_minimal = OperatorInfo(
+                :Sin, "Trigonometry", nothing, nothing,
+                false, false, false, false, false, nothing, nothing
+            )
             @test op_minimal.name == :Sin
-            @test op_minimal.category == "TRIGONOMETRIC"
+            @test op_minimal.category == "Trigonometry"
             @test op_minimal.arity === nothing
             @test op_minimal.description === nothing
-            @test op_minimal.aliases == String[]
         end
 
         @testset "RegistryLoadError" begin
@@ -56,12 +68,12 @@ using MathJSON: SPECIAL_FUNCTIONS
             categories = load_categories(path)
 
             @test categories isa Dict{String,CategoryInfo}
-            @test haskey(categories, "ARITHMETIC")
-            @test haskey(categories, "TRIGONOMETRIC")
-            @test haskey(categories, "UNKNOWN")
+            @test haskey(categories, "Arithmetic")
+            @test haskey(categories, "Trigonometry")
+            @test haskey(categories, "Logic")
 
-            arith = categories["ARITHMETIC"]
-            @test arith.id == "ARITHMETIC"
+            arith = categories["Arithmetic"]
+            @test arith.id == "Arithmetic"
             @test arith.name == "Arithmetic"
             @test !isempty(arith.description)
         end
@@ -96,11 +108,11 @@ using MathJSON: SPECIAL_FUNCTIONS
             @test operators isa Dict{Symbol,OperatorInfo}
             @test haskey(operators, :Add)
             @test haskey(operators, :Sin)
-            @test haskey(operators, :Derivative)
+            @test haskey(operators, :D)  # Derivative in Cortex
 
             add_op = operators[:Add]
             @test add_op.name == :Add
-            @test add_op.category == "ARITHMETIC"
+            @test add_op.category == "Arithmetic"
         end
 
         @testset "load_operators invalid category reference" begin
@@ -139,7 +151,7 @@ using MathJSON: SPECIAL_FUNCTIONS
             @test functions[:Exp] === exp
 
             # Test unmapped operators return nothing
-            @test functions[:Derivative] === nothing
+            @test functions[:D] === nothing  # Derivative in Cortex
 
             # Test special functions
             @test functions[:And] isa Function

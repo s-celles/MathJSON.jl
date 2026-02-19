@@ -8,14 +8,22 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
         @test isdefined(MathJSON, :OperatorCategory)
         @test isdefined(MathJSON.OperatorCategory, :T)
 
-        # Test all category values exist
+        # Test all Cortex category values exist
         @test OperatorCategory.ARITHMETIC isa OperatorCategory.T
-        @test OperatorCategory.TRIGONOMETRIC isa OperatorCategory.T
-        @test OperatorCategory.LOGARITHMIC isa OperatorCategory.T
-        @test OperatorCategory.COMPARISON isa OperatorCategory.T
-        @test OperatorCategory.LOGICAL isa OperatorCategory.T
-        @test OperatorCategory.SET isa OperatorCategory.T
         @test OperatorCategory.CALCULUS isa OperatorCategory.T
+        @test OperatorCategory.COLLECTIONS isa OperatorCategory.T
+        @test OperatorCategory.COLORS isa OperatorCategory.T
+        @test OperatorCategory.COMBINATORICS isa OperatorCategory.T
+        @test OperatorCategory.CONTROL_STRUCTURES isa OperatorCategory.T
+        @test OperatorCategory.CORE isa OperatorCategory.T
+        @test OperatorCategory.LINEAR_ALGEBRA isa OperatorCategory.T
+        @test OperatorCategory.LOGIC isa OperatorCategory.T
+        @test OperatorCategory.NUMBER_THEORY isa OperatorCategory.T
+        @test OperatorCategory.POLYNOMIALS isa OperatorCategory.T
+        @test OperatorCategory.RELATIONAL_OPERATORS isa OperatorCategory.T
+        @test OperatorCategory.STATISTICS isa OperatorCategory.T
+        @test OperatorCategory.TRIGONOMETRY isa OperatorCategory.T
+        @test OperatorCategory.UNITS isa OperatorCategory.T
         @test OperatorCategory.UNKNOWN isa OperatorCategory.T
     end
 
@@ -29,40 +37,38 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
         @test OPERATORS[:Divide] == OperatorCategory.ARITHMETIC
         @test OPERATORS[:Power] == OperatorCategory.ARITHMETIC
         @test OPERATORS[:Negate] == OperatorCategory.ARITHMETIC
+        @test OPERATORS[:Exp] == OperatorCategory.ARITHMETIC
+        @test OPERATORS[:Ln] == OperatorCategory.ARITHMETIC
+        @test OPERATORS[:Log] == OperatorCategory.ARITHMETIC
 
-        # Trigonometric operators
-        @test OPERATORS[:Sin] == OperatorCategory.TRIGONOMETRIC
-        @test OPERATORS[:Cos] == OperatorCategory.TRIGONOMETRIC
-        @test OPERATORS[:Tan] == OperatorCategory.TRIGONOMETRIC
-        @test OPERATORS[:Arcsin] == OperatorCategory.TRIGONOMETRIC
-        @test OPERATORS[:Arccos] == OperatorCategory.TRIGONOMETRIC
-        @test OPERATORS[:Arctan] == OperatorCategory.TRIGONOMETRIC
+        # Trigonometry operators
+        @test OPERATORS[:Sin] == OperatorCategory.TRIGONOMETRY
+        @test OPERATORS[:Cos] == OperatorCategory.TRIGONOMETRY
+        @test OPERATORS[:Tan] == OperatorCategory.TRIGONOMETRY
+        @test OPERATORS[:Arcsin] == OperatorCategory.TRIGONOMETRY
+        @test OPERATORS[:Arccos] == OperatorCategory.TRIGONOMETRY
+        @test OPERATORS[:Arctan] == OperatorCategory.TRIGONOMETRY
 
-        # Logarithmic operators
-        @test OPERATORS[:Log] == OperatorCategory.LOGARITHMIC
-        @test OPERATORS[:Ln] == OperatorCategory.LOGARITHMIC
-        @test OPERATORS[:Exp] == OperatorCategory.LOGARITHMIC
+        # Relational operators
+        @test OPERATORS[:Equal] == OperatorCategory.RELATIONAL_OPERATORS
+        @test OPERATORS[:NotEqual] == OperatorCategory.RELATIONAL_OPERATORS
+        @test OPERATORS[:Less] == OperatorCategory.RELATIONAL_OPERATORS
+        @test OPERATORS[:Greater] == OperatorCategory.RELATIONAL_OPERATORS
+        @test OPERATORS[:LessEqual] == OperatorCategory.RELATIONAL_OPERATORS
+        @test OPERATORS[:GreaterEqual] == OperatorCategory.RELATIONAL_OPERATORS
 
-        # Comparison operators
-        @test OPERATORS[:Equal] == OperatorCategory.COMPARISON
-        @test OPERATORS[:NotEqual] == OperatorCategory.COMPARISON
-        @test OPERATORS[:Less] == OperatorCategory.COMPARISON
-        @test OPERATORS[:Greater] == OperatorCategory.COMPARISON
-        @test OPERATORS[:LessEqual] == OperatorCategory.COMPARISON
-        @test OPERATORS[:GreaterEqual] == OperatorCategory.COMPARISON
+        # Logic operators
+        @test OPERATORS[:And] == OperatorCategory.LOGIC
+        @test OPERATORS[:Or] == OperatorCategory.LOGIC
+        @test OPERATORS[:Not] == OperatorCategory.LOGIC
 
-        # Logical operators
-        @test OPERATORS[:And] == OperatorCategory.LOGICAL
-        @test OPERATORS[:Or] == OperatorCategory.LOGICAL
-        @test OPERATORS[:Not] == OperatorCategory.LOGICAL
-
-        # Set operators
-        @test OPERATORS[:Union] == OperatorCategory.SET
-        @test OPERATORS[:Intersection] == OperatorCategory.SET
-        @test OPERATORS[:SetMinus] == OperatorCategory.SET
+        # Collections operators
+        @test OPERATORS[:Union] == OperatorCategory.COLLECTIONS
+        @test OPERATORS[:Intersection] == OperatorCategory.COLLECTIONS
+        @test OPERATORS[:SetMinus] == OperatorCategory.COLLECTIONS
 
         # Calculus operators
-        @test OPERATORS[:Derivative] == OperatorCategory.CALCULUS
+        @test OPERATORS[:D] == OperatorCategory.CALCULUS
         @test OPERATORS[:Integrate] == OperatorCategory.CALCULUS
     end
 
@@ -87,7 +93,7 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
         @test JULIA_FUNCTIONS[:Arccos](1) == 0.0
         @test JULIA_FUNCTIONS[:Arctan](0) == 0.0
 
-        # Logarithmic
+        # Logarithmic (now in Arithmetic)
         @test JULIA_FUNCTIONS[:Exp](0) == 1.0
         @test JULIA_FUNCTIONS[:Ln](ℯ) ≈ 1.0
         @test JULIA_FUNCTIONS[:Log](ℯ) ≈ 1.0
@@ -111,12 +117,12 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
 
     @testset "get_category" begin
         @test get_category(:Add) == OperatorCategory.ARITHMETIC
-        @test get_category(:Sin) == OperatorCategory.TRIGONOMETRIC
-        @test get_category(:Log) == OperatorCategory.LOGARITHMIC
-        @test get_category(:Equal) == OperatorCategory.COMPARISON
-        @test get_category(:And) == OperatorCategory.LOGICAL
-        @test get_category(:Union) == OperatorCategory.SET
-        @test get_category(:Derivative) == OperatorCategory.CALCULUS
+        @test get_category(:Sin) == OperatorCategory.TRIGONOMETRY
+        @test get_category(:Log) == OperatorCategory.ARITHMETIC
+        @test get_category(:Equal) == OperatorCategory.RELATIONAL_OPERATORS
+        @test get_category(:And) == OperatorCategory.LOGIC
+        @test get_category(:Union) == OperatorCategory.COLLECTIONS
+        @test get_category(:D) == OperatorCategory.CALCULUS
 
         # Unknown operator returns UNKNOWN
         @test get_category(:CustomOp) == OperatorCategory.UNKNOWN
@@ -136,7 +142,7 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
     @testset "is_known_operator" begin
         @test is_known_operator(:Add) == true
         @test is_known_operator(:Sin) == true
-        @test is_known_operator(:Derivative) == true
+        @test is_known_operator(:D) == true
 
         @test is_known_operator(:CustomOp) == false
         @test is_known_operator(:Foo) == false

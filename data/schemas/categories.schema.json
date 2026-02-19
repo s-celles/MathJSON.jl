@@ -15,8 +15,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[A-Z_]+$",
-            "description": "Unique uppercase identifier matching OperatorCategory enum"
+            "minLength": 1,
+            "description": "Unique identifier for the category (e.g., 'Arithmetic', 'Trigonometry')"
           },
           "name": {
             "type": "string",

@@ -2,6 +2,7 @@
 MathJSON Standard Library operator registry and Julia function mapping.
 
 Operators and function mappings are loaded from JSON files in the data/ directory.
+The operator definitions are based on the Cortex Compute Engine standard library.
 """
 
 """
@@ -22,42 +23,43 @@ module OperatorCategory
     OperatorCategory.T
 
 Enum representing the categories of MathJSON operators.
+Based on the Cortex Compute Engine standard library categories.
 
 # Values
-- `ARITHMETIC`: Basic math operations (+, -, *, /, ^)
-- `TRIGONOMETRIC`: Trigonometric functions (sin, cos, tan, etc.)
-- `LOGARITHMIC`: Logarithmic and exponential functions
-- `COMPARISON`: Comparison operators (<, >, ==, etc.)
-- `LOGICAL`: Logical operators (and, or, not)
-- `SET`: Set operations (union, intersection)
-- `CALCULUS`: Calculus operations (derivative, integral)
+- `ARITHMETIC`: Basic math operations and functions
+- `CALCULUS`: Calculus operations (derivatives, integrals, limits)
+- `COLLECTIONS`: Operations on collections (lists, sequences, sets)
+- `COLORS`: Color manipulation and conversion operations
+- `COMBINATORICS`: Combinatorial functions (factorial, binomial, permutations)
+- `CONTROL_STRUCTURES`: Control flow structures (if, loop, block)
+- `CORE`: Core language constructs and meta-operations
+- `LINEAR_ALGEBRA`: Linear algebra operations (matrix, vector, decompositions)
+- `LOGIC`: Logical operators and predicates
+- `NUMBER_THEORY`: Number theory functions (gcd, lcm, prime, divisibility)
+- `POLYNOMIALS`: Polynomial arithmetic and manipulation
+- `RELATIONAL_OPERATORS`: Comparison and relational operators
+- `STATISTICS`: Statistical functions (mean, variance, distributions)
+- `TRIGONOMETRY`: Trigonometric and hyperbolic functions
+- `UNITS`: Physical units and quantity operations
 - `UNKNOWN`: Unknown or unrecognized operator
 """
 @enum T begin
     ARITHMETIC
-    TRIGONOMETRIC
-    LOGARITHMIC
-    COMPARISON
-    LOGICAL
-    SET
     CALCULUS
-    UNKNOWN
-    # Additional categories from MathJSON standard library
-    TRIGONOMETRY
     COLLECTIONS
-    COMPLEX
-    SPECIAL_FUNCTIONS
-    STATISTICS
-    LINEAR_ALGEBRA
+    COLORS
     COMBINATORICS
-    NUMBER_THEORY
-    CORE
     CONTROL_STRUCTURES
-    FUNCTIONS
-    STRINGS
+    CORE
+    LINEAR_ALGEBRA
+    LOGIC
+    NUMBER_THEORY
+    POLYNOMIALS
+    RELATIONAL_OPERATORS
+    STATISTICS
+    TRIGONOMETRY
     UNITS
-    ROUNDING
-    POLYNOMIAL
+    UNKNOWN
 end
 
 end # module OperatorCategory
@@ -70,31 +72,24 @@ end # module OperatorCategory
     CATEGORY_ENUM_MAP
 
 Maps category ID strings to OperatorCategory.T enum values.
+Uses Cortex Compute Engine category names.
 """
 const CATEGORY_ENUM_MAP = Dict{String,OperatorCategory.T}(
-    "ARITHMETIC" => OperatorCategory.ARITHMETIC,
-    "TRIGONOMETRIC" => OperatorCategory.TRIGONOMETRIC,
-    "LOGARITHMIC" => OperatorCategory.LOGARITHMIC,
-    "COMPARISON" => OperatorCategory.COMPARISON,
-    "LOGICAL" => OperatorCategory.LOGICAL,
-    "SET" => OperatorCategory.SET,
-    "CALCULUS" => OperatorCategory.CALCULUS,
-    "UNKNOWN" => OperatorCategory.UNKNOWN,
-    "TRIGONOMETRY" => OperatorCategory.TRIGONOMETRY,
-    "COLLECTIONS" => OperatorCategory.COLLECTIONS,
-    "COMPLEX" => OperatorCategory.COMPLEX,
-    "SPECIAL_FUNCTIONS" => OperatorCategory.SPECIAL_FUNCTIONS,
-    "STATISTICS" => OperatorCategory.STATISTICS,
-    "LINEAR_ALGEBRA" => OperatorCategory.LINEAR_ALGEBRA,
-    "COMBINATORICS" => OperatorCategory.COMBINATORICS,
-    "NUMBER_THEORY" => OperatorCategory.NUMBER_THEORY,
-    "CORE" => OperatorCategory.CORE,
-    "CONTROL_STRUCTURES" => OperatorCategory.CONTROL_STRUCTURES,
-    "FUNCTIONS" => OperatorCategory.FUNCTIONS,
-    "STRINGS" => OperatorCategory.STRINGS,
-    "UNITS" => OperatorCategory.UNITS,
-    "ROUNDING" => OperatorCategory.ROUNDING,
-    "POLYNOMIAL" => OperatorCategory.POLYNOMIAL
+    "Arithmetic" => OperatorCategory.ARITHMETIC,
+    "Calculus" => OperatorCategory.CALCULUS,
+    "Collections" => OperatorCategory.COLLECTIONS,
+    "Colors" => OperatorCategory.COLORS,
+    "Combinatorics" => OperatorCategory.COMBINATORICS,
+    "Control Structures" => OperatorCategory.CONTROL_STRUCTURES,
+    "Core" => OperatorCategory.CORE,
+    "Linear Algebra" => OperatorCategory.LINEAR_ALGEBRA,
+    "Logic" => OperatorCategory.LOGIC,
+    "Number Theory" => OperatorCategory.NUMBER_THEORY,
+    "Polynomials" => OperatorCategory.POLYNOMIALS,
+    "Relational Operators" => OperatorCategory.RELATIONAL_OPERATORS,
+    "Statistics" => OperatorCategory.STATISTICS,
+    "Trigonometry" => OperatorCategory.TRIGONOMETRY,
+    "Units" => OperatorCategory.UNITS,
 )
 
 # =============================================================================
@@ -172,7 +167,7 @@ is not recognized.
 # Examples
 ```julia
 get_category(:Add)      # OperatorCategory.ARITHMETIC
-get_category(:Sin)      # OperatorCategory.TRIGONOMETRIC
+get_category(:Sin)      # OperatorCategory.TRIGONOMETRY
 get_category(:Custom)   # OperatorCategory.UNKNOWN
 ```
 """

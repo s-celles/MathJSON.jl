@@ -1,119 +1,79 @@
 {
   "categories": [
     {
-      "id": "ARITHMETIC",
+      "id": "Arithmetic",
       "name": "Arithmetic",
-      "description": "Basic math operations (+, -, *, /, ^)"
+      "description": "Basic arithmetic operations and functions"
     },
     {
-      "id": "TRIGONOMETRIC",
-      "name": "Trigonometric",
-      "description": "Trigonometric functions (sin, cos, tan, etc.)"
-    },
-    {
-      "id": "LOGARITHMIC",
-      "name": "Logarithmic",
-      "description": "Logarithmic and exponential functions"
-    },
-    {
-      "id": "COMPARISON",
-      "name": "Comparison",
-      "description": "Comparison operators (<, >, ==, etc.)"
-    },
-    {
-      "id": "LOGICAL",
-      "name": "Logical",
-      "description": "Logical operators (and, or, not)"
-    },
-    {
-      "id": "SET",
-      "name": "Set",
-      "description": "Set operations (union, intersection)"
-    },
-    {
-      "id": "CALCULUS",
+      "id": "Calculus",
       "name": "Calculus",
-      "description": "Calculus operations (derivative, integral)"
+      "description": "Calculus operations (derivatives, integrals, limits)"
     },
     {
-      "id": "UNKNOWN",
-      "name": "Unknown",
-      "description": "Unknown or unrecognized operator"
-    },
-    {
-      "id": "TRIGONOMETRY",
-      "name": "Trigonometry",
-      "description": "Extended trigonometric functions and identities"
-    },
-    {
-      "id": "COLLECTIONS",
+      "id": "Collections",
       "name": "Collections",
-      "description": "Operations on collections (lists, sequences)"
+      "description": "Operations on collections (lists, sequences, sets)"
     },
     {
-      "id": "COMPLEX",
-      "name": "Complex",
-      "description": "Complex number operations"
+      "id": "Colors",
+      "name": "Colors",
+      "description": "Color manipulation and conversion operations"
     },
     {
-      "id": "SPECIAL_FUNCTIONS",
-      "name": "Special Functions",
-      "description": "Special mathematical functions (gamma, beta, etc.)"
-    },
-    {
-      "id": "STATISTICS",
-      "name": "Statistics",
-      "description": "Statistical functions (mean, variance, etc.)"
-    },
-    {
-      "id": "LINEAR_ALGEBRA",
-      "name": "Linear Algebra",
-      "description": "Linear algebra operations (matrix, vector)"
-    },
-    {
-      "id": "COMBINATORICS",
+      "id": "Combinatorics",
       "name": "Combinatorics",
-      "description": "Combinatorial functions (factorial, binomial)"
+      "description": "Combinatorial functions (factorial, binomial, permutations)"
     },
     {
-      "id": "NUMBER_THEORY",
-      "name": "Number Theory",
-      "description": "Number theory functions (gcd, lcm, prime)"
-    },
-    {
-      "id": "CORE",
-      "name": "Core",
-      "description": "Core language constructs"
-    },
-    {
-      "id": "CONTROL_STRUCTURES",
+      "id": "Control Structures",
       "name": "Control Structures",
-      "description": "Control flow structures (if, loop)"
+      "description": "Control flow structures (if, loop, block)"
     },
     {
-      "id": "FUNCTIONS",
-      "name": "Functions",
-      "description": "Function definition and application"
+      "id": "Core",
+      "name": "Core",
+      "description": "Core language constructs and meta-operations"
     },
     {
-      "id": "STRINGS",
-      "name": "Strings",
-      "description": "String manipulation operations"
+      "id": "Linear Algebra",
+      "name": "Linear Algebra",
+      "description": "Linear algebra operations (matrix, vector, decompositions)"
     },
     {
-      "id": "UNITS",
+      "id": "Logic",
+      "name": "Logic",
+      "description": "Logical operators and predicates"
+    },
+    {
+      "id": "Number Theory",
+      "name": "Number Theory",
+      "description": "Number theory functions (gcd, lcm, prime, divisibility)"
+    },
+    {
+      "id": "Polynomials",
+      "name": "Polynomials",
+      "description": "Polynomial arithmetic and manipulation"
+    },
+    {
+      "id": "Relational Operators",
+      "name": "Relational Operators",
+      "description": "Comparison and relational operators"
+    },
+    {
+      "id": "Statistics",
+      "name": "Statistics",
+      "description": "Statistical functions (mean, variance, distributions)"
+    },
+    {
+      "id": "Trigonometry",
+      "name": "Trigonometry",
+      "description": "Trigonometric and hyperbolic functions"
+    },
+    {
+      "id": "Units",
       "name": "Units",
-      "description": "Physical units and quantities"
-    },
-    {
-      "id": "ROUNDING",
-      "name": "Rounding",
-      "description": "Rounding and truncation functions"
-    },
-    {
-      "id": "POLYNOMIAL",
-      "name": "Polynomial",
-      "description": "Polynomial arithmetic operations"
+      "description": "Physical units and quantity operations"
     }
   ]
 }

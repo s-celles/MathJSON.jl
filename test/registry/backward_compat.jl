@@ -4,29 +4,31 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
     get_category, get_julia_function, is_known_operator
 
 @testset "Backward Compatibility" begin
-    # Baseline data from original hardcoded implementation
-    # These tests ensure the JSON-loaded registry produces identical results
+    # Baseline data now using Cortex Compute Engine categories
+    # These tests ensure the JSON-loaded registry produces correct results
 
     @testset "OperatorCategory Enum Values" begin
-        # All original enum values must remain accessible
+        # All Cortex categories must be accessible
         @test OperatorCategory.ARITHMETIC isa OperatorCategory.T
-        @test OperatorCategory.TRIGONOMETRIC isa OperatorCategory.T
-        @test OperatorCategory.LOGARITHMIC isa OperatorCategory.T
-        @test OperatorCategory.COMPARISON isa OperatorCategory.T
-        @test OperatorCategory.LOGICAL isa OperatorCategory.T
-        @test OperatorCategory.SET isa OperatorCategory.T
         @test OperatorCategory.CALCULUS isa OperatorCategory.T
-        @test OperatorCategory.UNKNOWN isa OperatorCategory.T
-
-        # New categories should also be accessible
-        @test OperatorCategory.TRIGONOMETRY isa OperatorCategory.T
         @test OperatorCategory.COLLECTIONS isa OperatorCategory.T
-        @test OperatorCategory.COMPLEX isa OperatorCategory.T
-        @test OperatorCategory.SPECIAL_FUNCTIONS isa OperatorCategory.T
+        @test OperatorCategory.COLORS isa OperatorCategory.T
+        @test OperatorCategory.COMBINATORICS isa OperatorCategory.T
+        @test OperatorCategory.CONTROL_STRUCTURES isa OperatorCategory.T
+        @test OperatorCategory.CORE isa OperatorCategory.T
+        @test OperatorCategory.LINEAR_ALGEBRA isa OperatorCategory.T
+        @test OperatorCategory.LOGIC isa OperatorCategory.T
+        @test OperatorCategory.NUMBER_THEORY isa OperatorCategory.T
+        @test OperatorCategory.POLYNOMIALS isa OperatorCategory.T
+        @test OperatorCategory.RELATIONAL_OPERATORS isa OperatorCategory.T
+        @test OperatorCategory.STATISTICS isa OperatorCategory.T
+        @test OperatorCategory.TRIGONOMETRY isa OperatorCategory.T
+        @test OperatorCategory.UNITS isa OperatorCategory.T
+        @test OperatorCategory.UNKNOWN isa OperatorCategory.T
     end
 
-    @testset "Original Operator Categories" begin
-        # Baseline: all original operators must map to same categories
+    @testset "Cortex Operator Categories" begin
+        # Baseline: operators must map to correct Cortex categories
         baseline_categories = Dict{Symbol,OperatorCategory.T}(
             # Arithmetic operators
             :Add => OperatorCategory.ARITHMETIC,
@@ -38,42 +40,41 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
             :Root => OperatorCategory.ARITHMETIC,
             :Sqrt => OperatorCategory.ARITHMETIC,
             :Abs => OperatorCategory.ARITHMETIC,
-            # Trigonometric operators
-            :Sin => OperatorCategory.TRIGONOMETRIC,
-            :Cos => OperatorCategory.TRIGONOMETRIC,
-            :Tan => OperatorCategory.TRIGONOMETRIC,
-            :Arcsin => OperatorCategory.TRIGONOMETRIC,
-            :Arccos => OperatorCategory.TRIGONOMETRIC,
-            :Arctan => OperatorCategory.TRIGONOMETRIC,
-            :Sinh => OperatorCategory.TRIGONOMETRIC,
-            :Cosh => OperatorCategory.TRIGONOMETRIC,
-            :Tanh => OperatorCategory.TRIGONOMETRIC,
-            :Arcsinh => OperatorCategory.TRIGONOMETRIC,
-            :Arccosh => OperatorCategory.TRIGONOMETRIC,
-            :Arctanh => OperatorCategory.TRIGONOMETRIC,
-            # Logarithmic operators
-            :Log => OperatorCategory.LOGARITHMIC,
-            :Ln => OperatorCategory.LOGARITHMIC,
-            :Exp => OperatorCategory.LOGARITHMIC,
-            :Log10 => OperatorCategory.LOGARITHMIC,
-            :Log2 => OperatorCategory.LOGARITHMIC,
-            # Comparison operators
-            :Equal => OperatorCategory.COMPARISON,
-            :NotEqual => OperatorCategory.COMPARISON,
-            :Less => OperatorCategory.COMPARISON,
-            :Greater => OperatorCategory.COMPARISON,
-            :LessEqual => OperatorCategory.COMPARISON,
-            :GreaterEqual => OperatorCategory.COMPARISON,
-            # Logical operators
-            :And => OperatorCategory.LOGICAL,
-            :Or => OperatorCategory.LOGICAL,
-            :Not => OperatorCategory.LOGICAL,
-            # Set operators
-            :Union => OperatorCategory.SET,
-            :Intersection => OperatorCategory.SET,
-            :SetMinus => OperatorCategory.SET,
+            :Exp => OperatorCategory.ARITHMETIC,
+            :Ln => OperatorCategory.ARITHMETIC,
+            :Log => OperatorCategory.ARITHMETIC,
+            :Log10 => OperatorCategory.ARITHMETIC,
+            :Log2 => OperatorCategory.ARITHMETIC,
+            # Trigonometry operators
+            :Sin => OperatorCategory.TRIGONOMETRY,
+            :Cos => OperatorCategory.TRIGONOMETRY,
+            :Tan => OperatorCategory.TRIGONOMETRY,
+            :Arcsin => OperatorCategory.TRIGONOMETRY,
+            :Arccos => OperatorCategory.TRIGONOMETRY,
+            :Arctan => OperatorCategory.TRIGONOMETRY,
+            :Sinh => OperatorCategory.TRIGONOMETRY,
+            :Cosh => OperatorCategory.TRIGONOMETRY,
+            :Tanh => OperatorCategory.TRIGONOMETRY,
+            :Arsinh => OperatorCategory.TRIGONOMETRY,
+            :Arcosh => OperatorCategory.TRIGONOMETRY,
+            :Artanh => OperatorCategory.TRIGONOMETRY,
+            # Relational operators
+            :Equal => OperatorCategory.RELATIONAL_OPERATORS,
+            :NotEqual => OperatorCategory.RELATIONAL_OPERATORS,
+            :Less => OperatorCategory.RELATIONAL_OPERATORS,
+            :Greater => OperatorCategory.RELATIONAL_OPERATORS,
+            :LessEqual => OperatorCategory.RELATIONAL_OPERATORS,
+            :GreaterEqual => OperatorCategory.RELATIONAL_OPERATORS,
+            # Logic operators
+            :And => OperatorCategory.LOGIC,
+            :Or => OperatorCategory.LOGIC,
+            :Not => OperatorCategory.LOGIC,
+            # Collections operators
+            :Union => OperatorCategory.COLLECTIONS,
+            :Intersection => OperatorCategory.COLLECTIONS,
+            :SetMinus => OperatorCategory.COLLECTIONS,
             # Calculus operators
-            :Derivative => OperatorCategory.CALCULUS,
+            :D => OperatorCategory.CALCULUS,
             :Integrate => OperatorCategory.CALCULUS
         )
 
@@ -130,24 +131,24 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
         @test get_julia_function(:NonExistent) === nothing
 
         # Operators without Julia mapping
-        @test get_julia_function(:Derivative) === nothing
+        @test get_julia_function(:D) === nothing
         @test get_julia_function(:Integrate) === nothing
     end
 
     @testset "is_known_operator API" begin
-        # All original operators should be recognized
-        original_operators = [
+        # All Cortex operators should be recognized
+        cortex_operators = [
             :Add, :Subtract, :Multiply, :Divide, :Power, :Negate, :Root, :Sqrt, :Abs,
             :Sin, :Cos, :Tan, :Arcsin, :Arccos, :Arctan,
-            :Sinh, :Cosh, :Tanh, :Arcsinh, :Arccosh, :Arctanh,
+            :Sinh, :Cosh, :Tanh, :Arsinh, :Arcosh, :Artanh,
             :Log, :Ln, :Exp, :Log10, :Log2,
             :Equal, :NotEqual, :Less, :Greater, :LessEqual, :GreaterEqual,
             :And, :Or, :Not,
             :Union, :Intersection, :SetMinus,
-            :Derivative, :Integrate
+            :D, :Integrate
         ]
 
-        for op in original_operators
+        for op in cortex_operators
             @test is_known_operator(op) == true
         end
 
@@ -157,14 +158,14 @@ using MathJSON: OperatorCategory, OPERATORS, JULIA_FUNCTIONS,
     end
 
     @testset "get_category API" begin
-        # Test same behavior as before
+        # Test same behavior with new categories
         @test get_category(:Add) == OperatorCategory.ARITHMETIC
-        @test get_category(:Sin) == OperatorCategory.TRIGONOMETRIC
-        @test get_category(:Log) == OperatorCategory.LOGARITHMIC
-        @test get_category(:Equal) == OperatorCategory.COMPARISON
-        @test get_category(:And) == OperatorCategory.LOGICAL
-        @test get_category(:Union) == OperatorCategory.SET
-        @test get_category(:Derivative) == OperatorCategory.CALCULUS
+        @test get_category(:Sin) == OperatorCategory.TRIGONOMETRY
+        @test get_category(:Log) == OperatorCategory.ARITHMETIC
+        @test get_category(:Equal) == OperatorCategory.RELATIONAL_OPERATORS
+        @test get_category(:And) == OperatorCategory.LOGIC
+        @test get_category(:Union) == OperatorCategory.COLLECTIONS
+        @test get_category(:D) == OperatorCategory.CALCULUS
 
         # Unknown operator returns UNKNOWN
         @test get_category(:CustomOp) == OperatorCategory.UNKNOWN

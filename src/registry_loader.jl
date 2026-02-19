@@ -3,6 +3,7 @@ Registry loader for MathJSON operator definitions.
 
 This module provides functions to load operator categories, operators,
 and Julia function mappings from JSON files in the data/ directory.
+Compatible with Cortex Compute Engine OPERATORS.json format.
 """
 
 using JSON3
@@ -17,7 +18,7 @@ using JSON3
 Stores information about an operator category loaded from JSON.
 
 # Fields
-- `id::String`: Unique uppercase identifier (e.g., "ARITHMETIC")
+- `id::String`: Category identifier (e.g., "Arithmetic")
 - `name::String`: Human-readable display name
 - `description::String`: Brief description of the category
 """
@@ -31,20 +32,33 @@ end
     OperatorInfo
 
 Stores information about an operator loaded from JSON.
+Compatible with Cortex Compute Engine OPERATORS.json format.
 
 # Fields
 - `name::Symbol`: Operator name as Symbol
-- `category::String`: Category ID reference
-- `arity::Union{String,Int,Nothing}`: Operator arity
+- `category::String`: Category name reference
+- `arity::Union{String,Nothing}`: Operator arity (e.g., "1", "2", "variadic")
+- `signature::Union{String,Nothing}`: Type signature (e.g., "(number, number) -> number")
+- `associative::Bool`: Whether the operator is associative
+- `commutative::Bool`: Whether the operator is commutative
+- `idempotent::Bool`: Whether the operator is idempotent
+- `lazy::Bool`: Whether the operator uses lazy evaluation
+- `broadcastable::Bool`: Whether the operator can be broadcast
 - `description::Union{String,Nothing}`: Operator description
-- `aliases::Vector{String}`: Alternative names
+- `wikidata::Union{String,Nothing}`: Wikidata identifier
 """
 struct OperatorInfo
     name::Symbol
     category::String
-    arity::Union{String,Int,Nothing}
+    arity::Union{String,Nothing}
+    signature::Union{String,Nothing}
+    associative::Bool
+    commutative::Bool
+    idempotent::Bool
+    lazy::Bool
+    broadcastable::Bool
     description::Union{String,Nothing}
-    aliases::Vector{String}
+    wikidata::Union{String,Nothing}
 end
 
 """
@@ -83,6 +97,7 @@ const SPECIAL_FUNCTIONS = Dict{String,Function}(
     "logical_nor" => (a, b) -> !(a || b),
     "logical_implies" => (a, b) -> !a || b,
     "logical_equivalent" => (a, b) -> a == b,
+    "logical_xor" => (a, b) -> xor(a, b),
     # Set operators
     "not_element" => (x, s) -> !(x in s),
     "proper_subset" => (a, b) -> a ⊆ b && a != b,
@@ -90,7 +105,10 @@ const SPECIAL_FUNCTIONS = Dict{String,Function}(
     "issuperset" => (a, b) -> b ⊆ a,
     # Arithmetic
     "square" => x -> x^2,
+    "nth_root" => (x, n) -> x^(1/n),
     # Collection operators
+    "head" => x -> first(x),
+    "tail" => x -> x[2:end],
     "rest" => x -> x[2:end],
     "most" => x -> x[1:end-1],
     "take_n" => (x, n) -> x[1:min(n, length(x))],
@@ -103,7 +121,9 @@ const SPECIAL_FUNCTIONS = Dict{String,Function}(
         else
             args[1]:args[2]:args[3]
         end
-    end
+    end,
+    # Complex numbers
+    "complex_from_parts" => (re, im) -> complex(re, im),
 )
 
 # =============================================================================
@@ -184,6 +204,7 @@ end
     load_operators(filepath::String, categories::Dict{String,CategoryInfo}) -> Dict{Symbol, OperatorInfo}
 
 Load operator definitions from a JSON file.
+Compatible with Cortex Compute Engine OPERATORS.json format.
 
 # Arguments
 - `filepath`: Absolute path to operators JSON file
@@ -227,11 +248,22 @@ function load_operators(
         end
 
         arity = if hasproperty(op, :arity) && op.arity !== nothing
-            val = op.arity
-            val isa Integer ? Int(val) : String(val)
+            String(op.arity)
         else
             nothing
         end
+
+        signature = if hasproperty(op, :signature) && op.signature !== nothing
+            String(op.signature)
+        else
+            nothing
+        end
+
+        associative = hasproperty(op, :associative) ? Bool(op.associative) : false
+        commutative = hasproperty(op, :commutative) ? Bool(op.commutative) : false
+        idempotent = hasproperty(op, :idempotent) ? Bool(op.idempotent) : false
+        lazy = hasproperty(op, :lazy) ? Bool(op.lazy) : false
+        broadcastable = hasproperty(op, :broadcastable) ? Bool(op.broadcastable) : false
 
         description = if hasproperty(op, :description) && op.description !== nothing
             String(op.description)
@@ -239,13 +271,17 @@ function load_operators(
             nothing
         end
 
-        aliases = if hasproperty(op, :aliases) && op.aliases !== nothing
-            String[String(a) for a in op.aliases]
+        wikidata = if hasproperty(op, :wikidata) && op.wikidata !== nothing
+            String(op.wikidata)
         else
-            String[]
+            nothing
         end
 
-        info = OperatorInfo(name, category, arity, description, aliases)
+        info = OperatorInfo(
+            name, category, arity, signature,
+            associative, commutative, idempotent, lazy, broadcastable,
+            description, wikidata
+        )
         operators[name] = info
     end
 
