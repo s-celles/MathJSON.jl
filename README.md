@@ -1,5 +1,6 @@
 # MathJSON.jl
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18703970.svg)](https://doi.org/10.5281/zenodo.18703970)
 [![Build Status](https://github.com/s-celles/MathJSON.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/s-celles/MathJSON.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://s-celles.github.io/MathJSON.jl/stable/)
 [![Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://s-celles.github.io/MathJSON.jl/dev/)
