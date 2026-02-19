@@ -170,4 +170,106 @@ using MathJSON: SPECIAL_FUNCTIONS
         @test SPECIAL_FUNCTIONS["logical_or"](false, true) == true
         @test SPECIAL_FUNCTIONS["logical_or"](false, false) == false
     end
+
+    @testset "Julia Function Mappings Validity" begin
+        using JSON3
+
+        # Load all registry data
+        cat_path = get_registry_path("categories.json")
+        categories = load_categories(cat_path)
+        op_path = get_registry_path("operators.json")
+        operators = load_operators(op_path, categories)
+        func_path = get_registry_path("julia_functions.json")
+        data = JSON3.read(read(func_path, String))
+
+        @testset "All expression keys have SPECIAL_FUNCTIONS entries" begin
+            expression_keys = Set{String}()
+            for mapping in data.mappings
+                if hasproperty(mapping, :expression) && mapping.expression !== nothing
+                    push!(expression_keys, String(mapping.expression))
+                end
+            end
+
+            for key in expression_keys
+                @test haskey(SPECIAL_FUNCTIONS, key)
+            end
+        end
+
+        @testset "All Base module functions exist" begin
+            for mapping in data.mappings
+                if mapping.julia_function === nothing
+                    continue
+                end
+
+                func_name = String(mapping.julia_function)
+                mod_name = hasproperty(mapping, :module) ? String(mapping.module) : "Base"
+
+                if mod_name == "Base"
+                    @testset "$(mapping.operator) -> $func_name" begin
+                        # Try to resolve the function
+                        resolved = false
+                        try
+                            getfield(Base, Symbol(func_name))
+                            resolved = true
+                        catch
+                            # Try as operator expression
+                            try
+                                eval(Meta.parse(func_name))
+                                resolved = true
+                            catch
+                            end
+                        end
+                        @test resolved
+                    end
+                end
+            end
+        end
+
+        @testset "SPECIAL_FUNCTIONS implementations" begin
+            # Logical operators
+            @test SPECIAL_FUNCTIONS["logical_nand"](true, true) == false
+            @test SPECIAL_FUNCTIONS["logical_nand"](true, false) == true
+            @test SPECIAL_FUNCTIONS["logical_nor"](false, false) == true
+            @test SPECIAL_FUNCTIONS["logical_nor"](true, false) == false
+            @test SPECIAL_FUNCTIONS["logical_implies"](true, false) == false
+            @test SPECIAL_FUNCTIONS["logical_implies"](false, true) == true
+            @test SPECIAL_FUNCTIONS["logical_implies"](false, false) == true
+            @test SPECIAL_FUNCTIONS["logical_equivalent"](true, true) == true
+            @test SPECIAL_FUNCTIONS["logical_equivalent"](true, false) == false
+
+            # Arithmetic
+            @test SPECIAL_FUNCTIONS["square"](5) == 25
+            @test SPECIAL_FUNCTIONS["square"](-3) == 9
+
+            # Set operators
+            @test SPECIAL_FUNCTIONS["not_element"](1, [2, 3, 4]) == true
+            @test SPECIAL_FUNCTIONS["not_element"](2, [2, 3, 4]) == false
+            @test SPECIAL_FUNCTIONS["proper_subset"](Set([1, 2]), Set([1, 2, 3])) == true
+            @test SPECIAL_FUNCTIONS["proper_subset"](Set([1, 2]), Set([1, 2])) == false
+            @test SPECIAL_FUNCTIONS["proper_superset"](Set([1, 2, 3]), Set([1, 2])) == true
+            @test SPECIAL_FUNCTIONS["issuperset"](Set([1, 2, 3]), Set([1, 2])) == true
+
+            # Collection operators
+            @test SPECIAL_FUNCTIONS["rest"]([1, 2, 3]) == [2, 3]
+            @test SPECIAL_FUNCTIONS["most"]([1, 2, 3]) == [1, 2]
+            @test SPECIAL_FUNCTIONS["take_n"]([1, 2, 3, 4, 5], 3) == [1, 2, 3]
+            @test SPECIAL_FUNCTIONS["take_n"]([1, 2], 5) == [1, 2]  # Edge case
+            @test SPECIAL_FUNCTIONS["drop_n"]([1, 2, 3, 4, 5], 2) == [3, 4, 5]
+            @test SPECIAL_FUNCTIONS["drop_n"]([1, 2], 5) == []  # Edge case
+
+            # Range
+            @test SPECIAL_FUNCTIONS["make_range"](5) == 1:5
+            @test SPECIAL_FUNCTIONS["make_range"](2, 5) == 2:5
+            @test SPECIAL_FUNCTIONS["make_range"](1, 2, 10) == 1:2:10
+        end
+    end
+
+    @testset "Statistics functions availability" begin
+        # Statistics is a stdlib, import it
+        stats = Base.require(Base.PkgId(Base.UUID("10745b16-79ce-11e8-11f9-7d13ad32a3b2"), "Statistics"))
+        @test isdefined(stats, :mean)
+        @test isdefined(stats, :median)
+        @test isdefined(stats, :var)
+        @test isdefined(stats, :std)
+    end
 end
