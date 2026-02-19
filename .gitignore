@@ -17,6 +17,8 @@
 
 !test/
 !test/*.jl
+!test/package/
+!test/package/*.jl
 
 !docs/
 !docs/**
