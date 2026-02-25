@@ -10,7 +10,7 @@ using MathJSON
 using Symbolics
 using SymbolicUtils
 
-import MathJSON: to_symbolics, from_symbolics
+import MathJSON: to_symbolics, to_mathjson
 import MathJSON: NumberExpr, SymbolExpr, StringExpr, FunctionExpr, AbstractMathJSONExpr
 import MathJSON: UnsupportedConversionError, JULIA_FUNCTIONS, get_julia_function
 
@@ -141,7 +141,7 @@ const REVERSE_OPERATOR_MAP = Dict{Function, Symbol}(
 )
 
 """
-    from_symbolics(expr) -> AbstractMathJSONExpr
+    to_mathjson(expr) -> AbstractMathJSONExpr
 
 Convert a Symbolics.jl expression to a MathJSON expression.
 
@@ -150,11 +150,11 @@ Convert a Symbolics.jl expression to a MathJSON expression.
 using Symbolics, MathJSON
 
 @variables x y
-mathjson = from_symbolics(x + y)
+mathjson = to_mathjson(x + y)
 # FunctionExpr(:Add, [SymbolExpr("x"), SymbolExpr("y")])
 ```
 """
-function from_symbolics(expr::Number)
+function to_mathjson(expr::Number)
     if expr isa Integer
         return NumberExpr(Int64(expr))
     elseif expr isa Rational
@@ -164,12 +164,12 @@ function from_symbolics(expr::Number)
     end
 end
 
-function from_symbolics(expr::Symbolics.Num)
+function to_mathjson(expr::Symbolics.Num)
     # Unwrap Num to get the underlying symbolic expression
-    return from_symbolics(Symbolics.value(expr))
+    return to_mathjson(Symbolics.value(expr))
 end
 
-function from_symbolics(expr::SymbolicUtils.BasicSymbolic)
+function to_mathjson(expr::SymbolicUtils.BasicSymbolic)
     if SymbolicUtils.iscall(expr)
         return _convert_symbolic_call(expr)
     elseif SymbolicUtils.issym(expr)
@@ -180,7 +180,7 @@ function from_symbolics(expr::SymbolicUtils.BasicSymbolic)
     end
 end
 
-function from_symbolics(sym::Symbol)
+function to_mathjson(sym::Symbol)
     return SymbolExpr(String(sym))
 end
 
@@ -194,7 +194,7 @@ function _convert_symbolic_call(expr)
     args_sym = SymbolicUtils.arguments(expr)
 
     # Convert arguments recursively
-    args = AbstractMathJSONExpr[from_symbolics(arg) for arg in args_sym]
+    args = AbstractMathJSONExpr[to_mathjson(arg) for arg in args_sym]
 
     # Map operation to MathJSON operator
     mathjson_op = get(REVERSE_OPERATOR_MAP, op, nothing)

@@ -14,7 +14,7 @@ and the Cortex Compute Engine.
 - `validate(expr)`: Validate an expression against the MathJSON specification
 
 # Optional Extensions
-- Symbolics.jl: `to_symbolics(expr)` and `from_symbolics(expr)` for conversion
+- Symbolics.jl: `to_symbolics(expr)` and `to_mathjson(expr)` for conversion
 """
 module MathJSON
 
@@ -67,7 +67,7 @@ symbolic = to_symbolics(expr)
 function to_symbolics end
 
 """
-    from_symbolics(expr)
+    to_mathjson(expr)
 
 Convert a Symbolics.jl expression to a MathJSON expression.
 
@@ -78,10 +78,12 @@ Load it with `using Symbolics` before calling this function.
 ```julia
 using Symbolics
 @variables x
-mathjson = from_symbolics(x + 1)
+mathjson = to_mathjson(x + 1)
 ```
 """
-function from_symbolics end
+function to_mathjson end
+
+Base.@deprecate from_symbolics(expr) to_mathjson(expr)
 
 # Exports
 export MathJSONFormat
@@ -96,6 +98,6 @@ export RegistryLoadError, CategoryInfo, OperatorInfo
 export load_categories, load_operators, load_julia_functions, get_registry_path
 export SPECIAL_FUNCTIONS
 export generate, validate
-export to_symbolics, from_symbolics
+export to_symbolics, to_mathjson, from_symbolics
 
 end # module MathJSON

@@ -4,7 +4,7 @@ using Symbolics
 using SymbolicUtils
 
 using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr,
-    UnsupportedConversionError, to_symbolics, from_symbolics
+    UnsupportedConversionError, to_symbolics, to_mathjson, from_symbolics
 
 @testset "Symbolics.jl Extension" begin
     @testset "to_symbolics conversion" begin
@@ -118,20 +118,20 @@ using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr
         end
     end
 
-    @testset "from_symbolics conversion" begin
+    @testset "to_mathjson conversion" begin
         @testset "Numbers" begin
-            result = from_symbolics(42)
+            result = to_mathjson(42)
             @test result isa NumberExpr
             @test result.value == 42
 
-            result = from_symbolics(3.14)
+            result = to_mathjson(3.14)
             @test result isa NumberExpr
             @test result.value == 3.14
         end
 
         @testset "Symbolic variables" begin
             @variables x
-            result = from_symbolics(x)
+            result = to_mathjson(x)
             @test result isa SymbolExpr
             @test result.name == "x"
         end
@@ -140,25 +140,25 @@ using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr
             @variables x y
 
             # x + y
-            result = from_symbolics(x + y)
+            result = to_mathjson(x + y)
             @test result isa FunctionExpr
             @test result.operator == :Add
 
             # x * y
-            result = from_symbolics(x * y)
+            result = to_mathjson(x * y)
             @test result isa FunctionExpr
             @test result.operator == :Multiply
 
             # x - y
-            result = from_symbolics(x - y)
+            result = to_mathjson(x - y)
             @test result isa FunctionExpr
 
             # x / y
-            result = from_symbolics(x / y)
+            result = to_mathjson(x / y)
             @test result isa FunctionExpr
 
             # x^2
-            result = from_symbolics(x^2)
+            result = to_mathjson(x^2)
             @test result isa FunctionExpr
             @test result.operator == :Power
         end
@@ -166,11 +166,11 @@ using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr
         @testset "Trigonometric expressions" begin
             @variables x
 
-            result = from_symbolics(sin(x))
+            result = to_mathjson(sin(x))
             @test result isa FunctionExpr
             @test result.operator == :Sin
 
-            result = from_symbolics(cos(x))
+            result = to_mathjson(cos(x))
             @test result isa FunctionExpr
             @test result.operator == :Cos
         end
@@ -178,11 +178,11 @@ using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr
         @testset "Logarithmic expressions" begin
             @variables x
 
-            result = from_symbolics(exp(x))
+            result = to_mathjson(exp(x))
             @test result isa FunctionExpr
             @test result.operator == :Exp
 
-            result = from_symbolics(sqrt(x))
+            result = to_mathjson(sqrt(x))
             @test result isa FunctionExpr
             @test result.operator == :Sqrt
         end
@@ -191,17 +191,24 @@ using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr
             @variables x y
 
             # sin(x) + cos(y)
-            result = from_symbolics(sin(x) + cos(y))
+            result = to_mathjson(sin(x) + cos(y))
             @test result isa FunctionExpr
             @test result.operator == :Add
         end
+    end
+
+    @testset "from_symbolics deprecation" begin
+        @variables x
+        result = @test_deprecated from_symbolics(x)
+        @test result isa SymbolExpr
+        @test result.name == "x"
     end
 
     @testset "Round-trip conversion" begin
         @testset "Numeric round-trip" begin
             original = NumberExpr(42)
             symbolic = to_symbolics(original)
-            back = from_symbolics(symbolic)
+            back = to_mathjson(symbolic)
             @test back.value == original.value
         end
 
@@ -210,7 +217,7 @@ using MathJSON: MathJSONFormat, NumberExpr, SymbolExpr, StringExpr, FunctionExpr
 
             # Start from Symbolics
             symbolic_expr = x + 1
-            mathjson = from_symbolics(symbolic_expr)
+            mathjson = to_mathjson(symbolic_expr)
             @test mathjson isa FunctionExpr
 
             # Convert back to Symbolics

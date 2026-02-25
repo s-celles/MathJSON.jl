@@ -58,8 +58,12 @@ is_known_operator
 
 ```@docs
 to_symbolics
-from_symbolics
+to_mathjson
 ```
+
+### Deprecated
+
+- `from_symbolics(expr)` — use [`to_mathjson(expr)`](@ref to_mathjson) instead.
 
 ## Errors
 

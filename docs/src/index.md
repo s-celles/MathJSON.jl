@@ -48,7 +48,7 @@ symbolic = to_symbolics(expr)
 
 # Convert Symbolics to MathJSON
 @variables x
-mathjson = from_symbolics(x + 1)
+mathjson = to_mathjson(x + 1)
 ```
 
 ## Operator Registry
