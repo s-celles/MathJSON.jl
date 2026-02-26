@@ -170,11 +170,14 @@ function to_mathjson(expr::Symbolics.Num)
 end
 
 function to_mathjson(expr::SymbolicUtils.BasicSymbolic)
-    if SymbolicUtils.iscall(expr)
-        return _convert_symbolic_call(expr)
-    elseif SymbolicUtils.issym(expr)
+    if SymbolicUtils.issym(expr)
         name = String(SymbolicUtils.nameof(expr))
         return SymbolExpr(name)
+    elseif SymbolicUtils.iscall(expr)
+        return _convert_symbolic_call(expr)
+    elseif SymbolicUtils.symtype(expr) <: Number
+        # Literal constant wrapped in BasicSymbolic (e.g. -1 in x - y)
+        return to_mathjson(expr.val)
     else
         throw(UnsupportedConversionError("Unsupported symbolic expression type: $(typeof(expr))"))
     end
