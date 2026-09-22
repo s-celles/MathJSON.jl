@@ -18,7 +18,7 @@ and the Cortex Compute Engine.
 """
 module MathJSON
 
-using JSON3
+using JSON
 
 # Include type definitions
 include("types.jl")

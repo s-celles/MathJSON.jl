@@ -184,7 +184,7 @@ using MathJSON: SPECIAL_FUNCTIONS
     end
 
     @testset "Julia Function Mappings Validity" begin
-        using JSON3
+        using JSON
 
         # Load all registry data
         cat_path = get_registry_path("categories.json")
@@ -192,7 +192,7 @@ using MathJSON: SPECIAL_FUNCTIONS
         op_path = get_registry_path("operators.json")
         operators = load_operators(op_path, categories)
         func_path = get_registry_path("julia_functions.json")
-        data = JSON3.read(read(func_path, String))
+        data = JSON.parse(read(func_path, String))
 
         @testset "All expression keys have SPECIAL_FUNCTIONS entries" begin
             expression_keys = Set{String}()

@@ -6,7 +6,7 @@ and Julia function mappings from JSON files in the data/ directory.
 Compatible with Cortex Compute Engine OPERATORS.json format.
 """
 
-using JSON3
+using JSON
 
 # =============================================================================
 # Data Types
@@ -179,7 +179,7 @@ function load_categories(filepath::String)::Dict{String,CategoryInfo}
     local data
     try
         content = read(filepath, String)
-        data = JSON3.read(content)
+        data = JSON.parse(content)
     catch e
         if e isa ArgumentError
             throw(RegistryLoadError(filepath, "Invalid JSON: $(e.msg)"))
@@ -226,7 +226,7 @@ function load_operators(
     local data
     try
         content = read(filepath, String)
-        data = JSON3.read(content)
+        data = JSON.parse(content)
     catch e
         if e isa ArgumentError
             throw(RegistryLoadError(filepath, "Invalid JSON: $(e.msg)"))
@@ -313,7 +313,7 @@ function load_julia_functions(
     local data
     try
         content = read(filepath, String)
-        data = JSON3.read(content)
+        data = JSON.parse(content)
     catch e
         if e isa ArgumentError
             throw(RegistryLoadError(filepath, "Invalid JSON: $(e.msg)"))
