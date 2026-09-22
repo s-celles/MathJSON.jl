@@ -1,5 +1,5 @@
 using Test
-using JSON3
+using JSON
 using JSONSchema
 using MathJSON: get_registry_path
 
@@ -12,7 +12,7 @@ using MathJSON: get_registry_path
         @test isfile(data_path)
 
         schema = Schema(read(schema_path, String))
-        data = JSON3.read(read(data_path, String))
+        data = JSON.parse(read(data_path, String))
 
         @test isvalid(schema, data)
     end
@@ -25,14 +25,14 @@ using MathJSON: get_registry_path
         @test isfile(data_path)
 
         schema = Schema(read(schema_path, String))
-        data = JSON3.read(read(data_path, String))
+        data = JSON.parse(read(data_path, String))
 
         # Validate basic structure (Cortex format)
         @test haskey(data, :operators)
         @test length(data.operators) >= 380  # Cortex has 382 operators
 
         # Verify schema structure
-        schema_data = JSON3.read(read(schema_path, String))
+        schema_data = JSON.parse(read(schema_path, String))
         @test haskey(schema_data, :properties)
         @test haskey(schema_data.properties, :operators)
     end
@@ -45,7 +45,7 @@ using MathJSON: get_registry_path
         @test isfile(data_path)
 
         schema = Schema(read(schema_path, String))
-        data = JSON3.read(read(data_path, String))
+        data = JSON.parse(read(data_path, String))
 
         @test isvalid(schema, data)
     end
@@ -59,7 +59,7 @@ using MathJSON: get_registry_path
         ]
             path = get_registry_path(schema_file)
             content = read(path, String)
-            schema_data = JSON3.read(content)
+            schema_data = JSON.parse(content)
 
             @test haskey(schema_data, Symbol("\$schema"))
             @test haskey(schema_data, :type)
@@ -71,19 +71,19 @@ using MathJSON: get_registry_path
     @testset "Data integrity" begin
         # Verify categories file has required structure
         cat_path = get_registry_path("categories.json")
-        cat_data = JSON3.read(read(cat_path, String))
+        cat_data = JSON.parse(read(cat_path, String))
         @test haskey(cat_data, :categories)
         @test length(cat_data.categories) >= 8  # At least original 8 categories
 
         # Verify operators file has required structure
         op_path = get_registry_path("operators.json")
-        op_data = JSON3.read(read(op_path, String))
+        op_data = JSON.parse(read(op_path, String))
         @test haskey(op_data, :operators)
         @test length(op_data.operators) >= 40  # At least original 40 operators
 
         # Verify julia_functions file has required structure
         func_path = get_registry_path("julia_functions.json")
-        func_data = JSON3.read(read(func_path, String))
+        func_data = JSON.parse(read(func_path, String))
         @test haskey(func_data, :mappings)
         @test length(func_data.mappings) >= 37  # At least original 37 mappings
 

@@ -38,10 +38,10 @@ function generate(::Type{MathJSONFormat}, expr::AbstractMathJSONExpr;
     json_value = _to_json_value(expr, compact)
     if pretty
         io = IOBuffer()
-        JSON3.pretty(io, json_value)
+        JSON.json(io, json_value; pretty=true)
         return String(take!(io))
     else
-        return JSON3.write(json_value)
+        return JSON.json(json_value)
     end
 end
 

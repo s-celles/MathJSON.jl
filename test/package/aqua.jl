@@ -5,6 +5,6 @@ using MathJSON
     Aqua.test_all(
         MathJSON;
         ambiguities = false,  # Will enable once we have more methods
-        stale_deps = (ignore = [:JSON3],),  # JSON3 used but not directly called yet
+        stale_deps = (ignore = [:JSON],),  # JSON is used through the parser and generator
     )
 end

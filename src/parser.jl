@@ -32,13 +32,11 @@ parse(MathJSONFormat, "[\"Add\", 1, 2]")  # FunctionExpr(:Add, [NumberExpr(1), N
 """
 function Base.parse(::Type{MathJSONFormat}, str::AbstractString)
     try
-        json_value = JSON3.read(str)
+        json_value = JSON.parse(str)
         return _parse_value(json_value)
     catch e
-        if e isa JSON3.Error
-            throw(MathJSONParseError("Invalid JSON: $(e.message)", nothing))
-        elseif e isa ArgumentError
-            # JSON3 throws ArgumentError for invalid JSON in some cases
+        if e isa ArgumentError
+            # JSON.jl signals a parse failure with ArgumentError
             throw(MathJSONParseError("Invalid JSON: $(e.msg)", nothing))
         end
         rethrow()
@@ -62,7 +60,7 @@ function _parse_value(value::AbstractVector)
     return _parse_function(value)
 end
 
-function _parse_value(value::JSON3.Object)
+function _parse_value(value::JSON.Object)
     return _parse_object(value)
 end
 
@@ -124,12 +122,12 @@ function _parse_function(arr::AbstractVector)
 end
 
 """
-    _parse_object(obj::JSON3.Object) -> AbstractMathJSONExpr
+    _parse_object(obj::JSON.Object) -> AbstractMathJSONExpr
 
 Parse a JSON object into an expression.
 Handles extended number format, symbol format, string format, and function format.
 """
-function _parse_object(obj::JSON3.Object)
+function _parse_object(obj::JSON.Object)
     # Check for number format: {"num": "value"}
     if haskey(obj, :num)
         return _parse_number_object(obj)
@@ -154,12 +152,12 @@ function _parse_object(obj::JSON3.Object)
 end
 
 """
-    _parse_number_object(obj::JSON3.Object) -> NumberExpr
+    _parse_number_object(obj::JSON.Object) -> NumberExpr
 
 Parse a number object: {"num": "value"}
 Handles special values (NaN, Infinity) and extended precision.
 """
-function _parse_number_object(obj::JSON3.Object)
+function _parse_number_object(obj::JSON.Object)
     num_value = obj[:num]
 
     if !(num_value isa AbstractString)
@@ -273,11 +271,11 @@ function _parse_numeric_string(str::AbstractString)
 end
 
 """
-    _parse_symbol_object(obj::JSON3.Object) -> SymbolExpr
+    _parse_symbol_object(obj::JSON.Object) -> SymbolExpr
 
 Parse a symbol object: {"sym": "name", ...metadata}
 """
-function _parse_symbol_object(obj::JSON3.Object)
+function _parse_symbol_object(obj::JSON.Object)
     name = obj[:sym]
     if !(name isa AbstractString)
         throw(MathJSONParseError("'sym' value must be a string, got: $(typeof(name))", nothing))
@@ -288,11 +286,11 @@ function _parse_symbol_object(obj::JSON3.Object)
 end
 
 """
-    _parse_string_object(obj::JSON3.Object) -> StringExpr
+    _parse_string_object(obj::JSON.Object) -> StringExpr
 
 Parse a string object: {"str": "value", ...metadata}
 """
-function _parse_string_object(obj::JSON3.Object)
+function _parse_string_object(obj::JSON.Object)
     value = obj[:str]
     if !(value isa AbstractString)
         throw(MathJSONParseError("'str' value must be a string, got: $(typeof(value))", nothing))
@@ -303,11 +301,11 @@ function _parse_string_object(obj::JSON3.Object)
 end
 
 """
-    _parse_function_object(obj::JSON3.Object) -> FunctionExpr
+    _parse_function_object(obj::JSON.Object) -> FunctionExpr
 
 Parse a function object: {"fn": [...], ...metadata}
 """
-function _parse_function_object(obj::JSON3.Object)
+function _parse_function_object(obj::JSON.Object)
     fn_value = obj[:fn]
     if !(fn_value isa AbstractVector)
         throw(MathJSONParseError("'fn' value must be an array, got: $(typeof(fn_value))", nothing))
@@ -326,11 +324,11 @@ end
 const METADATA_KEYS = Set(["wikidata", "comment", "latex", "documentation", "sourceUrl"])
 
 """
-    _extract_metadata(obj::JSON3.Object) -> Union{Nothing, Dict{String, Any}}
+    _extract_metadata(obj::JSON.Object) -> Union{Nothing, Dict{String, Any}}
 
 Extract metadata fields from a JSON object.
 """
-function _extract_metadata(obj::JSON3.Object)
+function _extract_metadata(obj::JSON.Object)
     metadata = Dict{String, Any}()
 
     for key in METADATA_KEYS
