@@ -1,6 +1,6 @@
 name = "MathJSON"
 uuid = "77215b4b-6f01-425c-beac-950ae6536d4d"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Sébastien Celles <s.celles@gmail.com>"]
 
 [deps]

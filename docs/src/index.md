@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: Get started
-      link: /stable/api/
+      link: api/
     - theme: alt
       text: Operator registry
-      link: /stable/operators/
+      link: operators/
     - theme: alt
       text: GitHub
       link: https://github.com/s-celles/MathJSON.jl
@@ -21,7 +21,7 @@ features:
   - icon: 🧩
     title: Parse and generate
     details: Convert between MathJSON and Julia expression trees.
-    link: /stable/api/
+    link: api/
   - icon: ✅
     title: Validate expressions
     details: Check expressions against the MathJSON specification.
@@ -31,7 +31,7 @@ features:
   - icon: 📚
     title: Extensive operator registry
     details: Work with 382 operators in 15 categories.
-    link: /stable/operators/
+    link: operators/
 ---
 ```
 
