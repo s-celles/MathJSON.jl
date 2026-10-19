@@ -1,5 +1,8 @@
 using Documenter
+using DocumenterLandingPage
 using MathJSON
+
+include("build_llms.jl")
 
 makedocs(;
     sitename = "MathJSON.jl",
@@ -11,15 +14,20 @@ makedocs(;
         "Operator Registry" => "operators.md",
         "API Reference" => "api.md"
     ],
+    checkdocs = :exports,
+    plugins = [LandingPage()],
     format = Documenter.HTML(;
         prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://s-celles.github.io/MathJSON.jl"
-    ),
-    warnonly = [:missing_docs]
+        canonical = "https://s-celles.github.io/MathJSON.jl",
+        edit_link = nothing,
+        repolink = "https://github.com/s-celles/MathJSON.jl"
+    )
 )
 
-deploydocs(;
-    repo = "github.com/s-celles/MathJSON.jl",
-    devbranch = "main",
-    push_preview = true
-)
+if get(ENV, "CI", "false") == "true"
+    deploydocs(;
+        repo = "github.com/s-celles/MathJSON.jl",
+        devbranch = "main",
+        push_preview = true
+    )
+end

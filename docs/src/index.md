@@ -1,3 +1,40 @@
+```@raw html
+---
+layout: home
+
+hero:
+  name: MathJSON.jl
+  text: MathJSON for Julia
+  tagline: Parse, validate, and generate mathematical expressions with Julia.
+  actions:
+    - theme: brand
+      text: Get started
+      link: /stable/api/
+    - theme: alt
+      text: Operator registry
+      link: /stable/operators/
+    - theme: alt
+      text: GitHub
+      link: https://github.com/s-celles/MathJSON.jl
+
+features:
+  - icon: 🧩
+    title: Parse and generate
+    details: Convert between MathJSON and Julia expression trees.
+    link: /stable/api/
+  - icon: ✅
+    title: Validate expressions
+    details: Check expressions against the MathJSON specification.
+  - icon: ∑
+    title: Symbolics integration
+    details: Convert between MathJSON and Symbolics.jl expressions.
+  - icon: 📚
+    title: Extensive operator registry
+    details: Work with 382 operators in 15 categories.
+    link: /stable/operators/
+---
+```
+
 # MathJSON.jl
 
 A Julia package for parsing, manipulating, and generating mathematical expressions in the [MathJSON](https://cortexjs.io/math-json/) format.

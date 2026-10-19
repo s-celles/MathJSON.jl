@@ -3,6 +3,7 @@
 ## Core Types
 
 ```@docs
+MathJSON
 MathJSONFormat
 AbstractMathJSONExpr
 ExpressionType
@@ -52,6 +53,11 @@ JULIA_FUNCTIONS
 get_category
 get_julia_function
 is_known_operator
+SPECIAL_FUNCTIONS
+get_registry_path
+load_categories
+load_operators
+load_julia_functions
 ```
 
 ## Symbolics.jl Integration
